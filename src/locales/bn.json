@@ -1,0 +1,17 @@
+{
+  "home": "হোম",
+  "donate": "দান করুন",
+  "login": "লগইন",
+  "logout": "লগআউট",
+  "search_placeholder": "অনুসন্ধান করুন...",
+  "language": "ভাষা",
+  "category": {
+    "sports": "খেলা",
+    "entertainment": "বিনোদন",
+    "technology": "প্রযুক্তি",
+    "health": "স্বাস্থ্য",
+    "education": "শিক্ষা",
+    "politics": "রাজনীতি",
+    "international": "আন্তর্জাতিক"
+  }
+}

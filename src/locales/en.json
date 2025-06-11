@@ -1,0 +1,17 @@
+{
+  "home": "Home",
+  "donate": "Donate",
+  "login": "Login",
+  "logout": "Logout",
+  "search_placeholder": "Search...",
+  "language": "Language",
+  "category": {
+    "sports": "Sports",
+    "entertainment": "Entertainment",
+    "technology": "Technology",
+    "health": "Health",
+    "education": "Education",
+    "politics": "Politics",
+    "international": "International"
+  }
+}
