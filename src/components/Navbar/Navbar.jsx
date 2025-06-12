@@ -22,7 +22,6 @@ const Navbar = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
-  // Check login status on mount + when event triggers
   useEffect(() => {
     const checkAuth = () => {
       const token = localStorage.getItem("token");
@@ -39,7 +38,6 @@ const Navbar = () => {
     };
   }, []);
 
-  // Fetch all blogs
   useEffect(() => {
     axios
       .get("https://mts-blog-backend1.onrender.com/blogs")
@@ -47,7 +45,6 @@ const Navbar = () => {
       .catch((err) => console.error("Error fetching blogs:", err));
   }, []);
 
-  // Handle search
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearchTerm(value);
@@ -141,6 +138,15 @@ const Navbar = () => {
             {t("donate")}
           </Link>
 
+          {isLoggedIn && (
+            <Link
+              to="/admin/blogs"
+              className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900"
+            >
+              Admin
+            </Link>
+          )}
+
           {isLoggedIn ? (
             <button onClick={handleLogout} className="text-red-600 hover:underline">
               {t("logout")}
@@ -198,6 +204,15 @@ const Navbar = () => {
           >
             {t("donate")}
           </Link>
+
+          {isLoggedIn && (
+            <Link
+              to="/admin"
+              className="block bg-gray-800 text-white px-4 py-2 rounded text-center hover:bg-gray-900"
+            >
+              Admin
+            </Link>
+          )}
 
           {isLoggedIn ? (
             <button onClick={handleLogout} className="w-full text-red-600 text-center">
