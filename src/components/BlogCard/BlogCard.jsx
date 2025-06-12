@@ -7,7 +7,7 @@ const BlogCard = () => {
   const [sortOption, setSortOption] = useState("latest");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 4; // Number of blogs per page
+  const itemsPerPage = 8;
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -24,44 +24,64 @@ const BlogCard = () => {
 
   const categories = ["all", ...new Set(blogs.map((b) => b.category))];
 
-  // Filter by category
   const filteredBlogs =
     categoryFilter === "all"
       ? blogs
       : blogs.filter((blog) => blog.category === categoryFilter);
 
-  // Sort filtered blogs
   const sortedBlogs = [...filteredBlogs].sort((a, b) => {
+    const dateA = new Date(a.date || 0);
+    const dateB = new Date(b.date || 0);
+    const titleA = a.title?.toLowerCase() || "";
+    const titleB = b.title?.toLowerCase() || "";
+    const popA = a.popularity || 0;
+    const popB = b.popularity || 0;
+
     switch (sortOption) {
       case "oldest":
-        return new Date(a.date) - new Date(b.date);
+        return dateA - dateB;
       case "az":
-        return a.title.localeCompare(b.title);
+        return titleA.localeCompare(titleB);
       case "popular":
-        return (b.popularity || 0) - (a.popularity || 0);
+        return popB - popA;
       case "latest":
       default:
-        return new Date(b.date) - new Date(a.date);
+        return dateB - dateA;
     }
   });
 
-  // Pagination calculations
   const totalPages = Math.ceil(sortedBlogs.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedBlogs = sortedBlogs.slice(startIndex, startIndex + itemsPerPage);
 
-  // Handle page change
   const goToPage = (page) => {
     if (page >= 1 && page <= totalPages) setCurrentPage(page);
+  };
+
+  const getVisiblePages = () => {
+    const pages = [];
+
+    if (totalPages <= 3) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      if (currentPage === 1) {
+        pages.push(1, 2, 3);
+      } else if (currentPage === totalPages) {
+        pages.push(totalPages - 2, totalPages - 1, totalPages);
+      } else {
+        pages.push(currentPage - 1, currentPage, currentPage + 1);
+      }
+    }
+
+    return pages.filter((page) => page >= 1 && page <= totalPages);
   };
 
   return (
     <div className="max-w-[1400px] mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6 text-center">All News</h1>
 
-      {/* Filters and Sort */}
-      <div className="mb-6 flex justify-between space-x-4">
-        {/* Category Filter (Left) */}
+      {/* Filters */}
+      <div className="mb-6 flex justify-between space-x-4 flex-wrap">
         <div>
           <label htmlFor="category" className="mr-2 font-medium text-gray-700">
             Filter by Category:
@@ -71,7 +91,7 @@ const BlogCard = () => {
             value={categoryFilter}
             onChange={(e) => {
               setCategoryFilter(e.target.value);
-              setCurrentPage(1); // Reset to page 1 when filter changes
+              setCurrentPage(1);
             }}
             className="border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
@@ -83,7 +103,7 @@ const BlogCard = () => {
           </select>
         </div>
 
-        {/* Sort Dropdown (Right) */}
+        {/* Sort */}
         <div>
           <label htmlFor="sort" className="mr-2 font-medium text-gray-700">
             Sort by:
@@ -93,7 +113,7 @@ const BlogCard = () => {
             value={sortOption}
             onChange={(e) => {
               setSortOption(e.target.value);
-              setCurrentPage(1); // Reset to page 1 when sort changes
+              setCurrentPage(1);
             }}
             className="border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
@@ -105,7 +125,7 @@ const BlogCard = () => {
         </div>
       </div>
 
-      {/* Blogs Grid: 1 col mobile, 2 col small, 4 col md+ */}
+      {/* Blog Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {paginatedBlogs.map((blog) => (
           <div
@@ -142,28 +162,29 @@ const BlogCard = () => {
         ))}
       </div>
 
-      {/* Pagination Controls */}
-      <div className="mt-8 flex justify-center space-x-2">
+      {/* Pagination */}
+      <div className="mt-8 flex justify-center space-x-2 flex-wrap">
         <button
           onClick={() => goToPage(currentPage - 1)}
           disabled={currentPage === 1}
-          className={`px-3 py-1 rounded border ${currentPage === 1
-            ? "cursor-not-allowed border-gray-300 text-gray-400"
-            : "border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
-            }`}
+          className={`px-3 py-1 rounded border ${
+            currentPage === 1
+              ? "cursor-not-allowed border-gray-300 text-gray-400"
+              : "border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+          }`}
         >
           Prev
         </button>
 
-        {/* Show page numbers */}
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+        {getVisiblePages().map((pageNum) => (
           <button
             key={pageNum}
             onClick={() => goToPage(pageNum)}
-            className={`px-3 py-1 rounded border ${pageNum === currentPage
-              ? "bg-blue-600 text-white border-blue-600"
-              : "border-gray-300 text-gray-700 hover:bg-blue-100"
-              }`}
+            className={`px-3 py-1 rounded border ${
+              pageNum === currentPage
+                ? "bg-blue-600 text-white border-blue-600"
+                : "border-gray-300 text-gray-700 hover:bg-blue-100"
+            }`}
           >
             {pageNum}
           </button>
@@ -172,10 +193,11 @@ const BlogCard = () => {
         <button
           onClick={() => goToPage(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className={`px-3 py-1 rounded border ${currentPage === totalPages
-            ? "cursor-not-allowed border-gray-300 text-gray-400"
-            : "border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
-            }`}
+          className={`px-3 py-1 rounded border ${
+            currentPage === totalPages
+              ? "cursor-not-allowed border-gray-300 text-gray-400"
+              : "border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+          }`}
         >
           Next
         </button>
