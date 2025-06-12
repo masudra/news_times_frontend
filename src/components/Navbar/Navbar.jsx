@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-
 
 const categories = [
   { id: 1, name: "sports", rout: "sports" },
@@ -24,20 +22,32 @@ const Navbar = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
-  // local storage cheeck
+  // Check login status on mount + when event triggers
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token);
+    const checkAuth = () => {
+      const token = localStorage.getItem("token");
+      setIsLoggedIn(!!token);
+    };
+
+    checkAuth();
+    window.addEventListener("storage", checkAuth);
+    window.addEventListener("loginStatusChanged", checkAuth);
+
+    return () => {
+      window.removeEventListener("storage", checkAuth);
+      window.removeEventListener("loginStatusChanged", checkAuth);
+    };
   }, []);
 
-  // fetch blogs
+  // Fetch all blogs
   useEffect(() => {
     axios
-      .get("https://mts-blog-backend.onrender.com/blogs")
+      .get("https://mts-blog-backend1.onrender.com/blogs")
       .then((res) => setBlogs(res.data))
       .catch((err) => console.error("Error fetching blogs:", err));
   }, []);
 
+  // Handle search
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearchTerm(value);
@@ -49,18 +59,28 @@ const Navbar = () => {
     setFilteredResults(results);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.dispatchEvent(new Event("loginStatusChanged"));
+    setIsLoggedIn(false);
+    navigate("/");
+  };
+
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
       {/* Top Controls */}
       <div className="max-w-[1400px] mx-auto px-4 py-2 flex flex-col md:flex-row items-center justify-between gap-4">
-        {/* Logo + Mobile Toggle */}
+        {/* Logo and Mobile Toggle */}
         <div className="flex items-center justify-between w-full md:w-auto">
           <Link to="/">
             <img src="./logo.png" alt="Logo" className="h-12" />
           </Link>
           <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
               />
             </svg>
@@ -78,7 +98,10 @@ const Navbar = () => {
           />
           <span className="absolute left-3 top-2.5 text-gray-400">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z"
               />
             </svg>
@@ -87,10 +110,13 @@ const Navbar = () => {
             <ul className="absolute z-10 bg-white border w-full mt-1 rounded shadow-md max-h-60 overflow-y-auto">
               {filteredResults.map((item) => (
                 <li key={item._id} className="px-4 py-2 hover:bg-gray-100">
-                  <Link to={`/blogs/${item._id}`} onClick={() => {
-                    setSearchTerm("");
-                    setFilteredResults([]);
-                  }}>
+                  <Link
+                    to={`/blogs/${item._id}`}
+                    onClick={() => {
+                      setSearchTerm("");
+                      setFilteredResults([]);
+                    }}
+                  >
                     {item.title}
                   </Link>
                 </li>
@@ -99,7 +125,7 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Right Side Controls */}
+        {/* Right Controls */}
         <div className="hidden md:flex items-center gap-4">
           <select
             value={i18n.language}
@@ -110,30 +136,20 @@ const Navbar = () => {
             <option value="bn">বাংলা</option>
             <option value="hi">Hindi</option>
           </select>
+
           <Link to="/donate" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
             {t("donate")}
           </Link>
+
           {isLoggedIn ? (
-            <button
-              onClick={() => {
-                localStorage.removeItem("token");
-                setIsLoggedIn(false);
-                navigate("/");
-              }}
-              className="text-red-600 hover:underline"
-            >
+            <button onClick={handleLogout} className="text-red-600 hover:underline">
               {t("logout")}
             </button>
-
-
           ) : (
-            <>
-              <Link to="/login" className="text-blue-600 hover:underline">
-                {t("login")}
-              </Link>
-            </>
+            <Link to="/login" className="text-blue-600 hover:underline">
+              {t("login")}
+            </Link>
           )}
-
         </div>
       </div>
 
@@ -151,17 +167,21 @@ const Navbar = () => {
             <ul className="bg-white border w-full mt-1 rounded shadow-md max-h-60 overflow-y-auto">
               {filteredResults.map((item) => (
                 <li key={item._id} className="px-4 py-2 hover:bg-gray-100">
-                  <Link to={`/blogs/${item._id}`} onClick={() => {
-                    setSearchTerm("");
-                    setFilteredResults([]);
-                    setIsOpen(false);
-                  }}>
+                  <Link
+                    to={`/blogs/${item._id}`}
+                    onClick={() => {
+                      setSearchTerm("");
+                      setFilteredResults([]);
+                      setIsOpen(false);
+                    }}
+                  >
                     {item.title}
                   </Link>
                 </li>
               ))}
             </ul>
           )}
+
           <select
             value={i18n.language}
             onChange={(e) => i18n.changeLanguage(e.target.value)}
@@ -171,32 +191,23 @@ const Navbar = () => {
             <option value="bn">বাংলা</option>
             <option value="hi">Hindi</option>
           </select>
-          <Link to="/donate" className="block bg-blue-600 text-white px-4 py-2 rounded text-center hover:bg-blue-700">
+
+          <Link
+            to="/donate"
+            className="block bg-blue-600 text-white px-4 py-2 rounded text-center hover:bg-blue-700"
+          >
             {t("donate")}
           </Link>
+
           {isLoggedIn ? (
-            <button
-              onClick={() => {
-                localStorage.removeItem("token");
-                setIsLoggedIn(false);
-                setIsOpen(false);
-                navigate("/");
-              }}
-              className="w-full text-red-600 text-center"
-            >
+            <button onClick={handleLogout} className="w-full text-red-600 text-center">
               {t("logout")}
             </button>
-
-
           ) : (
-            <>
-              <Link to="/login" className="block text-blue-600 text-center">
-                {t("login")}
-              </Link>
-
-            </>
+            <Link to="/login" className="block text-blue-600 text-center">
+              {t("login")}
+            </Link>
           )}
-
         </div>
       )}
 
@@ -204,7 +215,10 @@ const Navbar = () => {
       <nav>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center gap-4 overflow-x-auto py-2 text-md font-medium text-gray-700">
-            <Link to="/" className="hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">
+            <Link
+              to="/"
+              className="hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+            >
               {t("home")}
             </Link>
             {categories.map((cat) => (
