@@ -14,10 +14,10 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('http://localhost:5000/login', formData);
+            const res = await axios.post('https://mts-blog-backend1.onrender.com/login', formData);
             localStorage.setItem('token', res.data.token);  // <-- 'res' use korte hobe
             toast.success(res.data.message || 'Login successful!');
-            navigate('/admin');  // Redirect after login
+            navigate('/admin/blogs');  // Redirect after login
         } catch (err) {
             toast.error(err.response?.data?.error || 'Login failed!');
         }

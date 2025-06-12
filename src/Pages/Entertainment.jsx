@@ -7,7 +7,7 @@ function Entertainment() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:5000/blogs");
+        const res = await fetch("https://mts-blog-backend1.onrender.com/blogs");
         const result = await res.json();
         console.log("Full API Response:", result);
 

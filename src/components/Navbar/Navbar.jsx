@@ -131,9 +131,6 @@ const Navbar = () => {
               <Link to="/login" className="text-blue-600 hover:underline">
                 {t("login")}
               </Link>
-              <Link to="/register" className="text-green-600 hover:underline">
-                {t("register")}
-              </Link>
             </>
           )}
 
@@ -196,9 +193,7 @@ const Navbar = () => {
               <Link to="/login" className="block text-blue-600 text-center">
                 {t("login")}
               </Link>
-              <Link to="/register" className="block text-green-600 text-center">
-                {t("register")}
-              </Link>
+
             </>
           )}
 

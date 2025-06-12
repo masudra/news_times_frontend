@@ -7,7 +7,7 @@ export default function AllBlogs() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/blogs")
+    fetch("https://mts-blog-backend1.onrender.com/blogs")
       .then(res => res.json())
       .then(data => {
         setBlogs(data);
@@ -25,7 +25,7 @@ export default function AllBlogs() {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/blogs/${id}`, {
+      const res = await fetch(`https://mts-blog-backend1.onrender.com/blogs/${id}`, {
         method: "DELETE",
       });
 
