@@ -16,7 +16,7 @@ const SingleBlog = () => {
     const fetchBlog = async () => {
       try {
         const res = await axios.get(
-          `https://mts-blog-backend.onrender.com/blogs/${id}`
+          `http://localhost:5000/blogs/${id}`
         );
         setBlog(res.data);
       } catch (err) {
@@ -33,7 +33,7 @@ const SingleBlog = () => {
     const fetchRecentPosts = async () => {
       try {
         const res = await axios.get(
-          "https://mts-blog-backend.onrender.com/blogs"
+          "http://localhost:5000/blogs"
         );
         setRecentPosts(res.data.reverse().slice(0, 5));
         setTrendingPosts(res.data.sort(() => 0.5 - Math.random()).slice(0, 5));

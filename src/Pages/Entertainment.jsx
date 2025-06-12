@@ -11,13 +11,19 @@ function Entertainment() {
         const result = await res.json();
         console.log("Full API Response:", result);
 
+        let blogs = [];
+
         if (Array.isArray(result)) {
-          setData(result);
+          blogs = result;
         } else if (Array.isArray(result.blogs)) {
-          setData(result.blogs);
-        } else {
-          console.warn("Unexpected data format:", result);
+          blogs = result.blogs;
         }
+
+        const entertainmentBlogs = blogs.filter(
+          (blog) => blog.category === "Entertainment"
+        );
+
+        setData(entertainmentBlogs);
       } catch (error) {
         console.error("Error fetching blogs:", error);
       }
@@ -25,6 +31,7 @@ function Entertainment() {
 
     fetchData();
   }, []);
+
 
   return (
     <div className="mt-20 w-full bg-white shadow-md rounded-lg pb-14">
@@ -37,21 +44,21 @@ function Entertainment() {
               <img
                 className="w-full object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                 src={
-                  data[0].imageUrl ||
+                  data[data.length - 1].imageUrl ||
                   "https://source.unsplash.com/600x400/?blog"
                 }
-                alt={data[0].title}
+                alt={data[data.length - 1].title}
               />
               <div className="p-2">
                 <Link
-                  to={`/blogs/${data[0]._id}`}
+                  to={`/blogs/${data[data.length - 1]._id}`}
                   className="text-4xl font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                 >
-                  {data[0].title}
+                  {data[data.length - 1].title}
                 </Link>
               </div>
               <p className="text-gray-700 text-sm line-clamp-3">
-                {data[0].summary}
+                {data[data.length - 1].summary}
               </p>
             </div>
           )}
@@ -61,7 +68,7 @@ function Entertainment() {
         <div>
           {data[2] && (
             <>
-              {[2, 3, 4, 0].map((i) => (
+              {[2, 3, 4, 5].map((i) => (
                 <div
                   key={i}
                   className="flex bg-blue-50 p-2 border-b-1 mt-4 first:mt-0"
@@ -69,17 +76,17 @@ function Entertainment() {
                   <img
                     className="w-full h-20 overflow-hidden transition-all duration-300 hover:scale-105"
                     src={
-                      data[i]?.imageUrl ||
+                      data[data.length - i]?.imageUrl ||
                       "https://source.unsplash.com/600x400/?blog"
                     }
-                    alt={data[i]?.title}
+                    alt={data[data.length - i]?.title}
                   />
                   <div className="p-2">
                     <Link
-                      to={`/blogs/${data[i]?._id}`}
+                      to={`/blogs/${data[data.length - i]?._id}`}
                       className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                     >
-                      {data[i]?.title}
+                      {data[data.length - i]?.title}
                     </Link>
                   </div>
                 </div>
@@ -92,7 +99,7 @@ function Entertainment() {
         <div>
           {data[1] && (
             <>
-              {[1, 2, 3, 4].map((i) => (
+              {[6, 7, 8, 9,].map((i) => (
                 <div
                   key={i}
                   className="flex bg-blue-50 p-2 border-b-1 mt-4 first:mt-0"
@@ -100,17 +107,17 @@ function Entertainment() {
                   <img
                     className="w-full h-20 overflow-hidden transition-all duration-300 hover:scale-105"
                     src={
-                      data[i]?.imageUrl ||
+                      data[data.length - i]?.imageUrl ||
                       "https://source.unsplash.com/600x400/?blog"
                     }
-                    alt={data[i]?.title}
+                    alt={data[data.length - i]?.title}
                   />
                   <div className="p-2">
                     <Link
-                      to={`/blogs/${data[i]?._id}`}
+                      to={`/blogs/${data[data.length - i]?._id}`}
                       className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                     >
-                      {data[i]?.title}
+                      {data[data.length - i]?.title}
                     </Link>
                   </div>
                 </div>
@@ -126,21 +133,21 @@ function Entertainment() {
               <img
                 className="w-full object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                 src={
-                  data[3].imageUrl ||
+                  data[data.length - 10].imageUrl ||
                   "https://source.unsplash.com/600x400/?blog"
                 }
-                alt={data[3].title}
+                alt={data[data.length - 10].title}
               />
               <div className="p-2">
                 <Link
-                  to={`/blogs/${data[3]._id}`}
+                  to={`/blogs/${data[data.length - 10]._id}`}
                   className="text-4xl font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                 >
-                  {data[3].title}
+                  {data[data.length - 10].title}
                 </Link>
               </div>
               <p className="text-gray-700 text-sm line-clamp-3">
-                {data[3].summary}
+                {data[data.length - 10].summary}
               </p>
             </div>
           )}

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+
 
 const categories = [
   { id: 1, name: "sports", rout: "sports" },
@@ -19,8 +21,14 @@ const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
   const [blogs, setBlogs] = useState([]);
-
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+
+  // local storage cheeck
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
 
   // fetch blogs
   useEffect(() => {
@@ -106,14 +114,29 @@ const Navbar = () => {
             {t("donate")}
           </Link>
           {isLoggedIn ? (
-            <button onClick={() => setIsLoggedIn(false)} className="text-red-600 hover:underline">
+            <button
+              onClick={() => {
+                localStorage.removeItem("token");
+                setIsLoggedIn(false);
+                navigate("/");
+              }}
+              className="text-red-600 hover:underline"
+            >
               {t("logout")}
             </button>
+
+
           ) : (
-            <Link to="/login" className="text-blue-600 hover:underline">
-              {t("login")}
-            </Link>
+            <>
+              <Link to="/login" className="text-blue-600 hover:underline">
+                {t("login")}
+              </Link>
+              <Link to="/register" className="text-green-600 hover:underline">
+                {t("register")}
+              </Link>
+            </>
           )}
+
         </div>
       </div>
 
@@ -155,14 +178,30 @@ const Navbar = () => {
             {t("donate")}
           </Link>
           {isLoggedIn ? (
-            <button onClick={() => setIsLoggedIn(false)} className="w-full text-red-600 text-center">
+            <button
+              onClick={() => {
+                localStorage.removeItem("token");
+                setIsLoggedIn(false);
+                setIsOpen(false);
+                navigate("/");
+              }}
+              className="w-full text-red-600 text-center"
+            >
               {t("logout")}
             </button>
+
+
           ) : (
-            <Link to="/login" className="block text-blue-600 text-center">
-              {t("login")}
-            </Link>
+            <>
+              <Link to="/login" className="block text-blue-600 text-center">
+                {t("login")}
+              </Link>
+              <Link to="/register" className="block text-green-600 text-center">
+                {t("register")}
+              </Link>
+            </>
           )}
+
         </div>
       )}
 

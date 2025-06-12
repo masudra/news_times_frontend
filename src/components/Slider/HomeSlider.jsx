@@ -9,19 +9,19 @@ const HomeSlider = () => {
       id: 1,
       title: "Welcome to Our Blog",
       desc: "Get the latest stories, updates, and knowledge in one place.",
-      img: "https://i.ibb.co/HfvJ7H3X/0-WTjy-Mn9ylpz-Dzyo-N.jpg",
+      img: "https://i.ibb.co/j9CqdxPY/download-17.jpg",
     },
     {
       id: 2,
       title: "Discover Diverse Categories",
       desc: "Technology, lifestyle, travel, and more — all in one blog.",
-      img: "https://i.ibb.co/twyZLk9Q/1641200554997.jpg",
+      img: "https://i.ibb.co/h1hQtX9c/download-15.jpg",
     },
     {
       id: 3,
       title: "Join the Conversation",
       desc: "Your voice matters — engage, comment, and connect.",
-      img: "https://i.ibb.co/TxZgkXK4/How-to-Start-a-Personal-Blog.webp",
+      img: "https://i.ibb.co/fzV6PvLT/download-21.jpg",
     },
   ];
 

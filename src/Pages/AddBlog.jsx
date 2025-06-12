@@ -34,7 +34,7 @@
 //         };
 
 //         try {
-//             const res = await axios.post("https://mts-blog-backend.onrender.com/blogs", blogWithDate);
+//             const res = await axios.post("http://localhost:5000/blogs", blogWithDate);
 //             alert("✅ Blog created successfully!");
 //             console.log(res.data);
 //             setBlog({

@@ -10,6 +10,8 @@ import Sports from "../Pages/Sports";
 import Entertainment from "../Pages/Entertainment";
 import Donate from "../Pages/Donate";
 import StripeCheckout from "../components/Stripe/StripeCheckout";
+import Register from "../components/Auth/Register";
+import Login from "../components/Auth/Login";
 
 // Admin Layout & Pages
 
@@ -42,6 +44,14 @@ export const router = createBrowserRouter([
       {
         path: "/entertainment",
         element: <Entertainment />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
       },
 
       {

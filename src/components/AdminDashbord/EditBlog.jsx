@@ -11,7 +11,7 @@ export default function EditBlog() {
     useEffect(() => {
         if (!id) return;
 
-        fetch(`https://mts-blog-backend.onrender.com/blogs/${id}`)
+        fetch(`http://localhost:5000/blogs/${id}`)
             .then(res => res.json())
             .then(data => {
                 setBlog(data);
@@ -32,7 +32,7 @@ export default function EditBlog() {
         e.preventDefault();
 
         try {
-            const res = await fetch(`https://mts-blog-backend.onrender.com/blogs/${id}`, {
+            const res = await fetch(`http://localhost:5000/blogs/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(blog),

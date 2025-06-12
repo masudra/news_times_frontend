@@ -7,7 +7,7 @@ function News() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("https://mts-blog-backend.onrender.com/blogs");
+        const res = await fetch("http://localhost:5000/blogs");
         const result = await res.json();
         console.log("Full API Response:", result);
 
@@ -39,39 +39,40 @@ function News() {
                   <img
                     className="w-full h-40 sm:h-48 lg:h-35 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                     src={
-                      data[0].imageUrl ||
+                      data[data.length - 1].imageUrl ||
                       "https://source.unsplash.com/600x400/?blog"
                     }
-                    alt={data[0].title}
+                    alt={data[data.length - 1].title}
                   />
                   <div className="p-2">
                     <Link
-                      to={`/blogs/${data[0]._id}`}
+                      to={`/blogs/${data[data.length - 1]._id}`}
                       className="text-lg font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                     >
-                      {data[0].title}
+                      {data[data.length - 1].title}
+                    </Link>
+                  </div>
+                </div>
+                <div className="bg-blue-50 p-2">
+                  <img
+                    className="w-full h-40 sm:h-48 lg:h-35 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
+                    src={
+                      data[data.length - 2].imageUrl ||
+                      "https://source.unsplash.com/600x400/?blog"
+                    }
+                    alt={data[data.length - 2].title}
+                  />
+                  <div className="p-2">
+                    <Link
+                      to={`/blogs/${data[data.length - 2]._id}`}
+                      className="text-lg font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
+                    >
+                      {data[data.length - 2].title}
                     </Link>
                   </div>
                 </div>
 
-                <div className=" bg-blue-50 p-2 mt-4">
-                  <img
-                    className="w-full h-40 sm:h-48 lg:h-34 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
-                    src={
-                      data[1].imageUrl ||
-                      "https://source.unsplash.com/600x400/?blog"
-                    }
-                    alt={data[1].title}
-                  />
-                  <div className="p-2">
-                    <Link
-                      to={`/blogs/${data[1]._id}`}
-                      className="text-lg font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
-                    >
-                      {data[1].title}
-                    </Link>
-                  </div>
-                </div>
+
               </>
             )}
           </div>
@@ -83,76 +84,76 @@ function News() {
               <>
                 <div className="flex flex-col sm:flex-row bg-blue-50 p-2 border-b-1 gap-2">
                   <img
-                     className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
+                    className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                     src={
-                      data[2]?.imageUrl ||
+                      data[data.length - 3]?.imageUrl ||
                       "https://source.unsplash.com/600x400/?blog"
                     }
-                    alt={data[2]?.title}
+                    alt={data[data.length - 3]?.title}
                   />
                   <div className="p-1">
                     <Link
-                      to={`/blogs/${data[2]?._id}`}
+                      to={`/blogs/${data[data.length - 3]?._id}`}
                       className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                     >
-                      {data[2]?.title}
+                      {data[data.length - 3]?.title}
                     </Link>
                   </div>
                 </div>
 
                 <div className="flex flex-col sm:flex-row bg-blue-50 p-2 border-b-1 mt-4 gap-2">
                   <img
-                     className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
+                    className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                     src={
-                      data[3]?.imageUrl ||
+                      data[data.length - 4]?.imageUrl ||
                       "https://source.unsplash.com/600x400/?blog"
                     }
-                    alt={data[3]?.title}
+                    alt={data[data.length - 4]?.title}
                   />
                   <div className="p-1">
                     <Link
-                      to={`/blogs/${data[3]?._id}`}
+                      to={`/blogs/${data[data.length - 4]?._id}`}
                       className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                     >
-                      {data[3]?.title}
+                      {data[data.length - 4]?.title}
                     </Link>
                   </div>
                 </div>
 
                 <div className="flex flex-col sm:flex-row bg-blue-50 p-2 border-b-1 mt-4 gap-2">
                   <img
-                     className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
+                    className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                     src={
-                      data[4]?.imageUrl ||
+                      data[data.length - 5]?.imageUrl ||
                       "https://source.unsplash.com/600x400/?blog"
                     }
-                    alt={data[4]?.title}
+                    alt={data[data.length - 5]?.title}
                   />
                   <div className="p-1">
                     <Link
-                      to={`/blogs/${data[4]?._id}`}
+                      to={`/blogs/${data[data.length - 5]?._id}`}
                       className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                     >
-                      {data[4]?.title}
+                      {data[data.length - 5]?.title}
                     </Link>
                   </div>
                 </div>
 
                 <div className="flex flex-col sm:flex-row bg-blue-50 p-2 border-b-1 mt-4 gap-2">
                   <img
-                     className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
+                    className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                     src={
-                      data[0]?.imageUrl ||
+                      data[data.length - 6]?.imageUrl ||
                       "https://source.unsplash.com/600x400/?blog"
                     }
-                    alt={data[0]?.title}
+                    alt={data[data.length - 6]?.title}
                   />
                   <div className="p-1">
                     <Link
-                      to={`/blogs/${data[0]?._id}`}
+                      to={`/blogs/${data[data.length - 6]?._id}`}
                       className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                     >
-                      {data[0]?.title}
+                      {data[data.length - 6]?.title}
                     </Link>
                   </div>
                 </div>
@@ -167,76 +168,76 @@ function News() {
               <>
                 <div className="flex flex-col sm:flex-row bg-blue-50 p-2 border-b-1 gap-2">
                   <img
-                     className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
+                    className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                     src={
-                      data[2]?.imageUrl ||
+                      data[data.length - 7]?.imageUrl ||
                       "https://source.unsplash.com/600x400/?blog"
                     }
-                    alt={data[2]?.title}
+                    alt={data[data.length - 7]?.title}
                   />
                   <div className="p-1">
                     <Link
-                      to={`/blogs/${data[2]?._id}`}
+                      to={`/blogs/${data[data.length - 7]?._id}`}
                       className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                     >
-                      {data[2]?.title}
+                      {data[data.length - 7]?.title}
                     </Link>
                   </div>
                 </div>
 
                 <div className="flex flex-col sm:flex-row bg-blue-50 p-2 border-b-1 mt-4 gap-2">
                   <img
-                     className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
+                    className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                     src={
-                      data[3]?.imageUrl ||
+                      data[data.length - 8]?.imageUrl ||
                       "https://source.unsplash.com/600x400/?blog"
                     }
-                    alt={data[3]?.title}
+                    alt={data[data.length - 8]?.title}
                   />
                   <div className="p-1">
                     <Link
-                      to={`/blogs/${data[3]?._id}`}
+                      to={`/blogs/${data[data.length - 8]?._id}`}
                       className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                     >
-                      {data[3]?.title}
+                      {data[data.length - 8]?.title}
                     </Link>
                   </div>
                 </div>
 
                 <div className="flex flex-col sm:flex-row bg-blue-50 p-2 border-b-1 mt-4 gap-2">
                   <img
-                     className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
+                    className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                     src={
-                      data[4]?.imageUrl ||
+                      data[data.length - 9]?.imageUrl ||
                       "https://source.unsplash.com/600x400/?blog"
                     }
-                    alt={data[4]?.title}
+                    alt={data[data.length - 9]?.title}
                   />
                   <div className="p-1">
                     <Link
-                      to={`/blogs/${data[4]?._id}`}
+                      to={`/blogs/${data[data.length - 9]?._id}`}
                       className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                     >
-                      {data[4]?.title}
+                      {data[data.length - 9]?.title}
                     </Link>
                   </div>
                 </div>
 
                 <div className="flex flex-col sm:flex-row bg-blue-50 p-2 border-b-1 mt-4 gap-2">
                   <img
-                     className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
+                    className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                     src={
-                      data[0]?.imageUrl ||
+                      data[data.length - 10]?.imageUrl ||
                       "https://source.unsplash.com/600x400/?blog"
                     }
-                    alt={data[0]?.title}
+                    alt={data[data.length - 10]?.title}
                   />
                   <div className="p-1">
                     <Link
-                      to={`/blogs/${data[0]?._id}`}
+                      to={`/blogs/${data[data.length - 10]?._id}`}
                       className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                     >
-                      {data[0]?.title}
+                      {data[data.length - 10]?.title}
                     </Link>
                   </div>
                 </div>
@@ -253,74 +254,74 @@ function News() {
                   <img
                     className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                     src={
-                      data[2]?.imageUrl ||
+                      data[data.length - 11]?.imageUrl ||
                       "https://source.unsplash.com/600x400/?blog"
                     }
-                    alt={data[2]?.title}
+                    alt={data[data.length - 11]?.title}
                   />
                   <div className="p-1">
                     <Link
-                      to={`/blogs/${data[2]?._id}`}
+                      to={`/blogs/${data[data.length - 11]?._id}`}
                       className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                     >
-                      {data[2]?.title}
+                      {data[data.length - 11]?.title}
                     </Link>
                   </div>
                 </div>
 
                 <div className="flex flex-col sm:flex-row bg-blue-50 p-2 border-b-1 mt-4 gap-2">
                   <img
-                     className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
+                    className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                     src={
-                      data[3]?.imageUrl ||
+                      data[data.length - 12]?.imageUrl ||
                       "https://source.unsplash.com/600x400/?blog"
                     }
-                    alt={data[3]?.title}
+                    alt={data[data.length - 12]?.title}
                   />
                   <div className="p-1">
                     <Link
-                      to={`/blogs/${data[3]?._id}`}
+                      to={`/blogs/${data[data.length - 12]?._id}`}
                       className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                     >
-                      {data[3]?.title}
+                      {data[data.length - 12]?.title}
                     </Link>
                   </div>
                 </div>
 
                 <div className="flex flex-col sm:flex-row bg-blue-50 p-2 border-b-1 mt-4 gap-2">
                   <img
-                     className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
+                    className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                     src={
-                      data[4]?.imageUrl ||
+                      data[data.length - 13]?.imageUrl ||
                       "https://source.unsplash.com/600x400/?blog"
                     }
-                    alt={data[4]?.title}
+                    alt={data[data.length - 13]?.title}
                   />
                   <div className="p-1">
                     <Link
-                      to={`/blogs/${data[4]?._id}`}
+                      to={`/blogs/${data[data.length - 13]?._id}`}
                       className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                     >
-                      {data[4]?.title}
+                      {data[data.length - 13]?.title}
                     </Link>
                   </div>
                 </div>
 
                 <div className="flex flex-col sm:flex-row bg-blue-50 p-2 border-b-1 mt-4 gap-2">
                   <img
-                     className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
+                    className="w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                     src={
-                      data[0]?.imageUrl ||
+                      data[data.length - 14]?.imageUrl ||
                       "https://source.unsplash.com/600x400/?blog"
                     }
-                    alt={data[0]?.title}
+                    alt={data[data.length - 14]?.title}
                   />
                   <div className="p-1">
                     <Link
-                      to={`/blogs/${data[0]?._id}`}
+                      to={`/blogs/${data[data.length - 14]?._id}`}
                       className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                     >
-                      {data[0]?.title}
+                      {data[data.length - 14]?.title}
                     </Link>
                   </div>
                 </div>

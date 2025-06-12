@@ -12,7 +12,7 @@ const BlogCard = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await axios.get("https://mts-blog-backend.onrender.com/blogs");
+        const res = await axios.get("http://localhost:5000/blogs");
         setBlogs(res.data);
       } catch (err) {
         console.error("Failed to fetch blogs", err);
@@ -147,11 +147,10 @@ const BlogCard = () => {
         <button
           onClick={() => goToPage(currentPage - 1)}
           disabled={currentPage === 1}
-          className={`px-3 py-1 rounded border ${
-            currentPage === 1
+          className={`px-3 py-1 rounded border ${currentPage === 1
               ? "cursor-not-allowed border-gray-300 text-gray-400"
               : "border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
-          }`}
+            }`}
         >
           Prev
         </button>
@@ -161,11 +160,10 @@ const BlogCard = () => {
           <button
             key={pageNum}
             onClick={() => goToPage(pageNum)}
-            className={`px-3 py-1 rounded border ${
-              pageNum === currentPage
+            className={`px-3 py-1 rounded border ${pageNum === currentPage
                 ? "bg-blue-600 text-white border-blue-600"
                 : "border-gray-300 text-gray-700 hover:bg-blue-100"
-            }`}
+              }`}
           >
             {pageNum}
           </button>
@@ -174,11 +172,10 @@ const BlogCard = () => {
         <button
           onClick={() => goToPage(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className={`px-3 py-1 rounded border ${
-            currentPage === totalPages
+          className={`px-3 py-1 rounded border ${currentPage === totalPages
               ? "cursor-not-allowed border-gray-300 text-gray-400"
               : "border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
-          }`}
+            }`}
         >
           Next
         </button>
