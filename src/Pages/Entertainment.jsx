@@ -40,7 +40,7 @@ function Entertainment() {
         {/* News 1 */}
         <div>
           {data[0] && (
-            <div className="bg-blue-50 p-2">
+            <div className="bg-blue-50 p-2 rounded-md">
               <img
                 className="w-full object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                 src={
@@ -71,22 +71,24 @@ function Entertainment() {
               {[2, 3, 4, 5].map((i) => (
                 <div
                   key={i}
-                  className="flex bg-blue-50 p-2 border-b-1 mt-4 first:mt-0"
+                  className="flex bg-blue-50 p-2 border-b-1 mt-4 first:mt-0 rounded-md"
                 >
                   <img
-                    className="w-full h-20 overflow-hidden transition-all duration-300 hover:scale-105"
+                    className="lg:w-[180px] w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                     src={
                       data[data.length - i]?.imageUrl ||
                       "https://source.unsplash.com/600x400/?blog"
                     }
                     alt={data[data.length - i]?.title}
                   />
+
                   <div className="p-2">
                     <Link
                       to={`/blogs/${data[data.length - i]?._id}`}
                       className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                     >
-                      {data[data.length - i]?.title}
+                      {data[data.length - i]?.title?.split(" ").slice(0, 7).join(" ") + '...'}
+
                     </Link>
                   </div>
                 </div>
@@ -98,26 +100,28 @@ function Entertainment() {
         {/* News 3 */}
         <div>
           {data[1] && (
-            <>
-              {[6, 7, 8, 9,].map((i) => (
+           <>
+              {[6, 7, 8, 9].map((i) => (
                 <div
                   key={i}
-                  className="flex bg-blue-50 p-2 border-b-1 mt-4 first:mt-0"
+                  className="flex bg-blue-50 p-2 border-b-1 mt-4 first:mt-0 rounded-md"
                 >
                   <img
-                    className="w-full h-20 overflow-hidden transition-all duration-300 hover:scale-105"
+                    className="lg:w-[180px] w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                     src={
                       data[data.length - i]?.imageUrl ||
                       "https://source.unsplash.com/600x400/?blog"
                     }
                     alt={data[data.length - i]?.title}
                   />
+
                   <div className="p-2">
                     <Link
                       to={`/blogs/${data[data.length - i]?._id}`}
                       className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                     >
-                      {data[data.length - i]?.title}
+                      {data[data.length - i]?.title?.split(" ").slice(0, 7).join(" ") + '...'}
+
                     </Link>
                   </div>
                 </div>
@@ -129,7 +133,7 @@ function Entertainment() {
         {/* News 4 */}
         <div>
           {data[3] && (
-            <div className="bg-blue-50 p-2">
+            <div className="bg-blue-50 p-2 rounded-md">
               <img
                 className="w-full object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                 src={
