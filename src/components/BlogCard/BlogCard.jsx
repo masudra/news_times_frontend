@@ -106,11 +106,11 @@ const BlogCard = () => {
       </div>
 
       {/* Blogs Grid: 1 col mobile, 2 col small, 4 col md+ */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {paginatedBlogs.map((blog) => (
           <div
             key={blog._id}
-            className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300"
+            className="bg-white rounded-md shadow-md overflow-hidden hover:shadow-xl transition-all duration-300"
           >
             <img
               className="w-full h-48 object-cover"

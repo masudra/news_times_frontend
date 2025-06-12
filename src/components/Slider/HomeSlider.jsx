@@ -44,7 +44,7 @@ const HomeSlider = () => {
           <div key={slide.id}>
             <div
               style={{
-                height: "400px",
+                height: "450px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",

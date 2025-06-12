@@ -66,98 +66,105 @@ const Navbar = () => {
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
       {/* Top Controls */}
-      <div className="max-w-[1400px] mx-auto px-4 py-2 flex flex-col md:flex-row items-center justify-between gap-4">
-        {/* Logo and Mobile Toggle */}
-        <div className="flex items-center justify-between w-full md:w-auto">
-          <Link to="/">
-            <img src="./logo.png" alt="Logo" className="h-12" />
-          </Link>
-          <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-              />
-            </svg>
-          </button>
-        </div>
-
-        {/* Search */}
-        <div className="relative md:w-80 w-full">
-          <input
-            type="text"
-            placeholder={t("search_placeholder")}
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="w-full pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring"
-          />
-          <span className="absolute left-3 top-2.5 text-gray-400">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </span>
-          {filteredResults.length > 0 && (
-            <ul className="absolute z-10 bg-white border w-full mt-1 rounded shadow-md max-h-60 overflow-y-auto">
-              {filteredResults.map((item) => (
-                <li key={item._id} className="px-4 py-2 hover:bg-gray-100">
-                  <Link
-                    to={`/blogs/${item._id}`}
-                    onClick={() => {
-                      setSearchTerm("");
-                      setFilteredResults([]);
-                    }}
-                  >
-                    {item.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-
-        {/* Right Controls */}
-        <div className="hidden md:flex items-center gap-4">
-          <select
-            value={i18n.language}
-            onChange={(e) => i18n.changeLanguage(e.target.value)}
-            className="border px-2 py-1 rounded"
-          >
-            <option value="en">English</option>
-            <option value="bn">বাংলা</option>
-            <option value="hi">Hindi</option>
-          </select>
-
-          <Link to="/donate" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-            {t("donate")}
-          </Link>
-
-          {isLoggedIn && (
-            <Link
-              to="/admin/blogs"
-              className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900"
-            >
-              Admin
+      <div>
+        <div className="max-w-[1400px] mx-auto px-4 py-2 my-auto flex flex-col md:flex-row items-center justify-between gap-4">
+          {/* Logo and Mobile Toggle */}
+          <div className="flex items-center justify-between w-full md:w-auto">
+            <Link to="/">
+              <img src="./logo.png" alt="Logo" className="h-12 w-full" />
             </Link>
-          )}
-
-          {isLoggedIn ? (
-            <button onClick={handleLogout} className="text-red-600 hover:underline">
-              {t("logout")}
+            <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+                />
+              </svg>
             </button>
-          ) : (
-            <Link to="/login" className="text-blue-600 hover:underline">
-              {t("login")}
+          </div>
+
+          {/* Search */}
+          <div className="w-full flex justify-end">
+            <div className=" relative md:w-80 w-full ">
+              <input
+                type="text"
+                placeholder={t("search_placeholder")}
+                value={searchTerm}
+                onChange={handleSearchChange}
+                className="w-full pl-10 pr-4 py-1 border rounded-md focus:outline-none focus:ring"
+              />
+              <span className="absolute left-3 top-2.5 text-gray-400">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </span>
+              {filteredResults.length > 0 && (
+                <ul className="absolute z-10 bg-white border w-full mt-1 rounded shadow-md max-h-60 overflow-y-auto">
+                  {filteredResults.map((item) => (
+                    <li key={item._id} className="px-4 py-2 hover:bg-gray-100">
+                      <Link
+                        to={`/blogs/${item._id}`}
+                        onClick={() => {
+                          setSearchTerm("");
+                          setFilteredResults([]);
+                        }}
+                      >
+                        {item.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+
+
+          {/* Right Controls */}
+          <div className="hidden md:flex items-center gap-4">
+            <select
+              value={i18n.language}
+              onChange={(e) => i18n.changeLanguage(e.target.value)}
+              className="border px-2 py-1 rounded"
+            >
+              <option value="en">English</option>
+              <option value="bn">বাংলা</option>
+              <option value="hi">Hindi</option>
+            </select>
+
+            <Link to="/donate" className="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700">
+              {t("donate")}
             </Link>
-          )}
+
+            {isLoggedIn && (
+              <Link
+                to="/admin/blogs"
+                className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900"
+              >
+                Admin
+              </Link>
+            )}
+
+            {isLoggedIn ? (
+              <button onClick={handleLogout} className="text-red-600 hover:underline">
+                {t("logout")}
+              </button>
+            ) : (
+              <Link to="/login" className="text-blue-600 hover:underline">
+                {t("login")}
+              </Link>
+            )}
+          </div>
         </div>
       </div>
+
+
 
       {/* Mobile Dropdown */}
       {isOpen && (
@@ -228,8 +235,8 @@ const Navbar = () => {
 
       {/* Category Navigation */}
       <nav>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-center gap-4 overflow-x-auto py-2 text-md font-medium text-gray-700">
+        <div className="max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-center gap-4 overflow-x-auto pb-2 text-md font-medium text-gray-700">
             <Link
               to="/"
               className="hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
