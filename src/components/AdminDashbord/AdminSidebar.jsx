@@ -12,7 +12,7 @@ export default function AdminSidebar() {
   };
 
   return (
-    <div className="w-64 h-screen bg-gray-900 text-white p-4">
+    <div className="w-64 fixed top-0 left-0 h-screen bg-gray-900 text-white p-4 overflow-y-auto">
       <h2 className="text-xl font-bold mb-6">Admin Dashboard</h2>
       <nav className="flex flex-col gap-4">
         <Link to="/admin/blogs" className="flex items-center gap-2 hover:underline">
