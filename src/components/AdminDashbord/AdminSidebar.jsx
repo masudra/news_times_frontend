@@ -8,7 +8,7 @@ export default function AdminSidebar() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.dispatchEvent(new Event("loginStatusChanged"));
-    navigate("/"); // redirect to homepage (or use "/login" if preferred)
+    navigate("/"); 
   };
 
   return (

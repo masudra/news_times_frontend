@@ -44,7 +44,7 @@ function Sports() {
                   className="flex bg-blue-50 p-2 border-b-1 mt-4 first:mt-0 rounded-md"
                 >
                   <img
-                    className="lg:w-[180px] w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
+                    className="lg:min-w-14 lg:max-w-34 w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                     src={
                       data[data.length - i]?.imageUrl ||
                       "https://source.unsplash.com/600x400/?blog"
@@ -57,7 +57,7 @@ function Sports() {
                       to={`/blogs/${data[data.length - i]?._id}`}
                       className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                     >
-                      {data[data.length - i]?.title?.split(" ").slice(0, 7).join(" ") + '...'}
+                      {data[data.length - i]?.title?.split(" ").slice(0, 4).join(" ") + '...'}
 
                     </Link>
                   </div>
@@ -75,7 +75,7 @@ function Sports() {
               <>
                 <div className="bg-blue-50 p-2 rounded-md">
                   <img
-                    className="w-full h-64 sm:h-72 lg:h-80 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
+                    className="w-full h-64 sm:h-72 lg:h-78 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                     src={
                       data[data.length - 5]?.imageUrl ||
                       "https://source.unsplash.com/600x400/?blog"
@@ -87,11 +87,12 @@ function Sports() {
                       to={`/blogs/${data[data.length - 5]._id}`}
                       className="text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                     >
-                      {data[data.length - 5].title}
+                      {data[data.length - 5]?.title?.split(" ").slice(0, 10).join(" ") + '...'}
+                      
                     </Link>
                   </div>
                   <p className="text-gray-700 text-sm line-clamp-3">
-                    {data[data.length - 5].summary}
+                    {data[data.length - 5]?.content?.split(" ").slice(0, 50).join(" ") + '...'}
                   </p>
                 </div>
               </>
@@ -110,7 +111,7 @@ function Sports() {
                   className="flex bg-blue-50 p-2 border-b-1 mt-4 first:mt-0 rounded-md"
                 >
                   <img
-                    className="lg:w-[180px] w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
+                    className="lg:min-w-14 lg:max-w-34 w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                     src={
                       data[data.length - i]?.imageUrl ||
                       "https://source.unsplash.com/600x400/?blog"
@@ -123,7 +124,7 @@ function Sports() {
                       to={`/blogs/${data[data.length - i]?._id}`}
                       className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                     >
-                      {data[data.length - i]?.title?.split(" ").slice(0, 7).join(" ") + '...'}
+                      {data[data.length - i]?.title?.split(" ").slice(0, 4).join(" ") + '...'}
 
                     </Link>
                   </div>

@@ -36,9 +36,9 @@ function News() {
             {data[0] && (
               <>
                 {[1, 2].map((i) => (
-                  <div key={i} className="bg-blue-50 p-2 mt-4 first:mt-0 rounded-md ">
+                  <div key={i} className="bg-blue-50 p-2 lg:py-[10px] mt-4 first:mt-0 rounded-md ">
                     <img
-                      className="w-full h-40 sm:h-48 lg:h-35 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
+                      className="w-full h-40 sm:h-48 lg:h-37 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                       src={
                         data[data.length - i].imageUrl ||
                         "https://source.unsplash.com/600x400/?blog"
@@ -50,7 +50,7 @@ function News() {
                         to={`/blogs/${data[data.length - i]._id}`}
                         className="text-lg font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                       >
-                        {data[data.length - i].title}
+                        {data[data.length - i]?.title?.split(" ").slice(0, 6).join(" ") + '...'}
                       </Link>
                     </div>
                   </div>
@@ -70,7 +70,7 @@ function News() {
                     className="flex bg-blue-50 p-2 border-b-1 mt-4 first:mt-0 rounded-md"
                   >
                     <img
-                      className="lg:w-[180px] w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
+                      className="lg:min-w-14 lg:max-w-34 w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                       src={
                         data[data.length - i]?.imageUrl ||
                         "https://source.unsplash.com/600x400/?blog"
@@ -83,7 +83,7 @@ function News() {
                         to={`/blogs/${data[data.length - i]?._id}`}
                         className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                       >
-                        {data[data.length - i]?.title?.split(" ").slice(0, 7).join(" ") + '...'}
+                        {data[data.length - i]?.title?.split(" ").slice(0, 4).join(" ") + '...'}
 
                       </Link>
                     </div>
@@ -104,7 +104,7 @@ function News() {
                     className="flex bg-blue-50 p-2 border-b-1 mt-4 first:mt-0 rounded-md"
                   >
                     <img
-                      className="lg:w-[180px] w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
+                      className="lg:min-w-14 lg:max-w-34 w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                       src={
                         data[data.length - i]?.imageUrl ||
                         "https://source.unsplash.com/600x400/?blog"
@@ -117,7 +117,7 @@ function News() {
                         to={`/blogs/${data[data.length - i]?._id}`}
                         className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                       >
-                        {data[data.length - i]?.title?.split(" ").slice(0, 7).join(" ") + '...'}
+                        {data[data.length - i]?.title?.split(" ").slice(0, 4).join(" ") + '...'}
 
                       </Link>
                     </div>
@@ -138,7 +138,7 @@ function News() {
                     className="flex bg-blue-50 p-2 border-b-1 mt-4 first:mt-0 rounded-md"
                   >
                     <img
-                      className="lg:w-[180px] w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
+                      className="lg:min-w-14 lg:max-w-34 w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
                       src={
                         data[data.length - i]?.imageUrl ||
                         "https://source.unsplash.com/600x400/?blog"
@@ -151,7 +151,7 @@ function News() {
                         to={`/blogs/${data[data.length - i]?._id}`}
                         className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                       >
-                        {data[data.length - i]?.title?.split(" ").slice(0, 7).join(" ") + '...'}
+                        {data[data.length - i]?.title?.split(" ").slice(0, 4).join(" ") + '...'}
 
                       </Link>
                     </div>

@@ -38,7 +38,7 @@ const HomeSlider = () => {
   };
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ maxWidth: "1400px", margin: "0 auto", width: "100%" }}>
       <Slider {...settings}>
         {slides.map((slide) => (
           <div key={slide.id}>
@@ -65,8 +65,20 @@ const HomeSlider = () => {
                   backgroundColor: "rgba(0,0,0,0.6)",
                 }}
               ></div>
-              <div style={{ position: "relative", textAlign: "center", padding: "0 20px" }}>
-                <h2 style={{ fontSize: "2rem", fontWeight: "bold", marginBottom: "10px" }}>
+              <div
+                style={{
+                  position: "relative",
+                  textAlign: "center",
+                  padding: "0 20px",
+                }}
+              >
+                <h2
+                  style={{
+                    fontSize: "2rem",
+                    fontWeight: "bold",
+                    marginBottom: "10px",
+                  }}
+                >
                   {slide.title}
                 </h2>
                 <p style={{ fontSize: "1.2rem" }}>{slide.desc}</p>

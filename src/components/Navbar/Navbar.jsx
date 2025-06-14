@@ -14,6 +14,7 @@ const categories = [
 ];
 
 const Navbar = () => {
+  const [Data, setData] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -65,38 +66,60 @@ const Navbar = () => {
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
-      {/* Top Controls */}
-      <div>
-        <div className="max-w-[1400px] mx-auto px-4 py-2 my-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          {/* Logo and Mobile Toggle */}
-          <div className="flex items-center justify-between w-full md:w-auto">
-            <Link to="/">
-              <img src="./logo.png" alt="Logo" className="h-12 w-full" />
-            </Link>
-            <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-                />
-              </svg>
-            </button>
-          </div>
+      <div className="max-w-[1400px] mx-auto px-4 py-2 my-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="flex items-center justify-between w-full md:w-auto">
+          <Link to="/">
+            {/* Logo with red & black */}
+            <img src="./logo.png" alt="Logo" className="h-12 w-full" />
+          </Link>
+          <button
+            className="md:hidden text-red-700"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle Menu"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d={
+                  isOpen
+                    ? "M6 18L18 6M6 6l12 12"
+                    : "M4 6h16M4 12h16M4 18h16"
+                }
+              />
+            </svg>
+          </button>
+        </div>
 
+        <div
+          className={`flex flex-col md:flex-row items-center gap-4 w-full md:w-auto ${isOpen ? "block" : "hidden"
+            } md:block`}
+        >
           {/* Search */}
-          <div className="w-full flex justify-end">
-            <div className=" relative md:w-80 w-full ">
+          <div className="w-full flex justify-center lg:ml-23 mb-2">
+            <div className="relative w-full max-w-md">
               <input
                 type="text"
                 placeholder={t("search_placeholder")}
                 value={searchTerm}
                 onChange={handleSearchChange}
-                className="w-full pl-10 pr-4 py-1 border rounded-md focus:outline-none focus:ring"
+                className="w-full pl-12 pr-4 py-1 border-2 border-red-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-black text-lg"
               />
-              <span className="absolute left-3 top-2.5 text-gray-400">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <span className="absolute left-4 top-3 text-red-600">
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -106,14 +129,15 @@ const Navbar = () => {
                 </svg>
               </span>
               {filteredResults.length > 0 && (
-                <ul className="absolute z-10 bg-white border w-full mt-1 rounded shadow-md max-h-60 overflow-y-auto">
+                <ul className="absolute z-20 bg-white border border-red-600 w-full mt-1 rounded-lg shadow-md max-h-60 overflow-y-auto text-black">
                   {filteredResults.map((item) => (
-                    <li key={item._id} className="px-4 py-2 hover:bg-gray-100">
+                    <li key={item._id} className="px-4 py-2 hover:bg-red-100 cursor-pointer">
                       <Link
                         to={`/blogs/${item._id}`}
                         onClick={() => {
                           setSearchTerm("");
                           setFilteredResults([]);
+                          setIsOpen(false);
                         }}
                       >
                         {item.title}
@@ -126,79 +150,36 @@ const Navbar = () => {
           </div>
 
 
-          {/* Right Controls */}
-          <div className="hidden md:flex items-center gap-4">
-            <select
-              value={i18n.language}
-              onChange={(e) => i18n.changeLanguage(e.target.value)}
-              className="border px-2 py-1 rounded"
-            >
-              <option value="en">English</option>
-              <option value="bn">বাংলা</option>
-              <option value="hi">Hindi</option>
-            </select>
 
-            <Link to="/donate" className="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700">
-              {t("donate")}
-            </Link>
-
-            {isLoggedIn && (
+          {/* Category Navigation */}
+          <nav className="w-full md:w-auto">
+            <div className="flex gap-3 overflow-x-auto scrollbar-hide px-2 font-medium text-black text-md">
               <Link
-                to="/admin/blogs"
-                className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900"
+                to="/"
+                className="hover:text-red-900 px-3 py-2 rounded-md  font-medium whitespace-nowrap"
               >
-                Admin
+                {t("home")}
               </Link>
-            )}
-
-            {isLoggedIn ? (
-              <button onClick={handleLogout} className="text-red-600 hover:underline">
-                {t("logout")}
-              </button>
-            ) : (
-              <Link to="/login" className="text-blue-600 hover:underline">
-                {t("login")}
-              </Link>
-            )}
-          </div>
-        </div>
-      </div>
-
-
-
-      {/* Mobile Dropdown */}
-      {isOpen && (
-        <div className="md:hidden px-4 pb-4 space-y-2">
-          <input
-            type="text"
-            placeholder={t("search_placeholder")}
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="w-full px-4 py-2 border rounded-md"
-          />
-          {filteredResults.length > 0 && (
-            <ul className="bg-white border w-full mt-1 rounded shadow-md max-h-60 overflow-y-auto">
-              {filteredResults.map((item) => (
-                <li key={item._id} className="px-4 py-2 hover:bg-gray-100">
-                  <Link
-                    to={`/blogs/${item._id}`}
-                    onClick={() => {
-                      setSearchTerm("");
-                      setFilteredResults([]);
-                      setIsOpen(false);
-                    }}
-                  >
-                    {item.title}
-                  </Link>
-                </li>
+              {categories.map((cat) => (
+                <Link
+                  key={cat.id}
+                  to={`/${cat.rout}`}
+                  className="hover:text-red-900 px-3 py-2 rounded-md font-medium whitespace-nowrap"
+                >
+                  {t(`category.${cat.name}`)}
+                </Link>
               ))}
-            </ul>
-          )}
+            </div>
+          </nav>
 
+        </div>
+
+        {/* Right Controls */}
+        <div className="hidden md:flex items-center gap-4">
           <select
             value={i18n.language}
             onChange={(e) => i18n.changeLanguage(e.target.value)}
-            className="w-full border px-2 py-1 rounded"
+            className="border-2 border-red-600 text-red-700 px-3 py-1.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
           >
             <option value="en">English</option>
             <option value="bn">বাংলা</option>
@@ -207,54 +188,37 @@ const Navbar = () => {
 
           <Link
             to="/donate"
-            className="block bg-blue-600 text-white px-4 py-2 rounded text-center hover:bg-blue-700"
+            className="text-red-700 border-2 border-red-700 px-5 py-1.5 rounded-lg hover:bg-red-700 hover:text-white transition font-semibold"
           >
             {t("donate")}
           </Link>
 
           {isLoggedIn && (
             <Link
-              to="/admin"
-              className="block bg-gray-800 text-white px-4 py-2 rounded text-center hover:bg-gray-900"
+              to="/admin/blogs"
+              className="bg-black text-red-600 px-5 py-1.5 rounded-lg hover:bg-gray-900 transition font-semibold"
             >
               Admin
             </Link>
           )}
 
           {isLoggedIn ? (
-            <button onClick={handleLogout} className="w-full text-red-600 text-center">
+            <button
+              onClick={handleLogout}
+              className="text-red-700 border-2 border-red-700 px-5 py-1.5 rounded-lg hover:bg-red-700 hover:text-white transition font-semibold"
+            >
               {t("logout")}
             </button>
           ) : (
-            <Link to="/login" className="block text-blue-600 text-center">
+            <Link
+              to="/login"
+              className="text-red-700 border-2 border-red-700 px-5 py-2 rounded-lg hover:bg-red-700 hover:text-white transition font-semibold"
+            >
               {t("login")}
             </Link>
           )}
         </div>
-      )}
-
-      {/* Category Navigation */}
-      <nav>
-        <div className="max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-center gap-4 overflow-x-auto pb-2 text-md font-medium text-gray-700">
-            <Link
-              to="/"
-              className="hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              {t("home")}
-            </Link>
-            {categories.map((cat) => (
-              <Link
-                key={cat.id}
-                to={`/${cat.rout}`}
-                className="hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
-              >
-                {t(`category.${cat.name}`)}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </nav>
+      </div>
     </header>
   );
 };
