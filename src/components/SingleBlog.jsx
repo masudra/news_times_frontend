@@ -1,68 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
+import LoadingSpinner from "../components/LoadingSpinner";
+import { BlogContext } from "../context/BlogContext";
 
 const SingleBlog = () => {
   const { id } = useParams();
-  const [blog, setBlog] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [recentPosts, setRecentPosts] = useState([]);
-  const [trendingPosts, setTrendingPosts] = useState([]);
-  const [recentLoading, setRecentLoading] = useState(true);
+  const { blogs, loading } = useContext(BlogContext);
+  const blog = blogs.find((b) => b._id === id);
+  const recentPosts = [...blogs].reverse().slice(0, 5);
+  const trendingPosts = [...blogs].sort(() => 0.5 - Math.random()).slice(0, 5);
+  if (loading) return <LoadingSpinner />;
 
-  useEffect(() => {
-    const fetchBlog = async () => {
-      try {
-        const res = await axios.get(
-          `https://mts-blog-backend1.onrender.com/blogs/${id}`
-        );
-        setBlog(res.data);
-      } catch (err) {
-        setError("Failed to fetch blog");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBlog();
-  }, [id]);
-
-  useEffect(() => {
-    const fetchRecentPosts = async () => {
-      try {
-        const res = await axios.get(
-          "https://mts-blog-backend1.onrender.com/blogs"
-        );
-        setRecentPosts(res.data.reverse().slice(0, 5));
-        setTrendingPosts(res.data.sort(() => 0.5 - Math.random()).slice(0, 5));
-      } catch (err) {
-        console.error("Failed to fetch recent posts");
-      } finally {
-        setRecentLoading(false);
-      }
-    };
-
-    fetchRecentPosts();
-  }, []);
-
-  if (loading) return <div className="text-center py-10">Loading...</div>;
-  if (error)
-    return <div className="text-center py-10 text-red-500">{error}</div>;
-  if (!blog) return <div className="text-center py-10">Blog not found</div>;
+  if (!blog) return <div className="text-center py-10 text-2xl text-red-700">Blog not found</div>;
 
   return (
-    <div className="max-w-full lg:max-w-[1400px] mx-auto p-4">
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_3fr_1fr] gap-4">
+    <div className="max-w-full lg:max-w-[1400px] mx-auto p-4 h-screen">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_3fr_1fr] gap-4 h-full">
 
         {/* Left Sidebar - only for desktop */}
         <div className="hidden lg:block">
 
           <div className="bg-gray-50 p-4 rounded space-y-4 w-full">
             <h2 className="text-xl font-semibold mb-3 p-4  shadow shadow-red-400">📌 Recent Posts</h2>
-            {recentLoading ? (
-              <p>Loading...</p>
+            {loading ? (
+              <LoadingSpinner />
             ) : (
               recentPosts.map((post) => (
                 <Link
@@ -93,7 +56,7 @@ const SingleBlog = () => {
         </div>
 
         {/* Main Blog Content */}
-        <div className="bg-white p-6 rounded shadow">
+        <div className="bg-white p-6 rounded shadow overflow-y-auto h-full">
           <Link
             to="/"
             className="text-blue-600 hover:underline mb-4 inline-block"
@@ -129,8 +92,8 @@ const SingleBlog = () => {
         <div className="hidden lg:block">
           <div className="bg-gray-50 p-4 rounded space-y-4">
             <h2 className="text-xl font-semibold mb-3 p-4  shadow shadow-red-400">🔥 Trending Posts</h2>
-            {recentLoading ? (
-              <p>Loading...</p>
+            {loading ? (
+              <LoadingSpinner />
             ) : (
               trendingPosts.map((trendpost) => (
                 <Link
@@ -198,9 +161,8 @@ const SingleBlog = () => {
         {/* Recent Posts */}
         <div className="bg-gray-50 p-4 rounded space-y-4">
           <h2 className="text-xl font-semibold mb-3">📌 Recent Posts</h2>
-          {recentLoading ? (
-            <p>Loading...</p>
-          ) : (
+          {loading ? (
+            <LoadingSpinner />) : (
             recentPosts.map((post) => (
               <Link
                 to={`/blogs/${post._id}`}
@@ -231,9 +193,8 @@ const SingleBlog = () => {
         {/* Trending Posts */}
         <div className="bg-gray-50 p-4 rounded space-y-4">
           <h2 className="text-xl font-semibold mb-3">🔥 Trending Posts</h2>
-          {recentLoading ? (
-            <p>Loading...</p>
-          ) : (
+          {loading ? (
+            <LoadingSpinner />) : (
             trendingPosts.map((trendpost) => (
               <Link
                 to={`/blogs/${trendpost._id}`}

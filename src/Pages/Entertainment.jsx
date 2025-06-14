@@ -1,37 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { BlogContext } from "../context/BlogContext";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 function Entertainment() {
-  const [data, setData] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch("https://mts-blog-backend1.onrender.com/blogs");
-        const result = await res.json();
-        console.log("Full API Response:", result);
+  const { blogs, loading } = useContext(BlogContext);
 
-        let blogs = [];
-
-        if (Array.isArray(result)) {
-          blogs = result;
-        } else if (Array.isArray(result.blogs)) {
-          blogs = result.blogs;
-        }
-
-        const entertainmentBlogs = blogs.filter(
-          (blog) => blog.category === "Entertainment"
-        );
-
-        setData(entertainmentBlogs);
-      } catch (error) {
-        console.error("Error fetching blogs:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+  // Filter only Sports blogs
+  const data = blogs.filter(blog => blog.category === "Entertainment");
+  if (loading) return <LoadingSpinner />;
 
   return (
     <div className="mt-20 w-full bg-white shadow-md rounded-lg pb-14">

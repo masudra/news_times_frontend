@@ -1,33 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { BlogContext } from "../context/BlogContext";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 function Sports() {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
+  const { blogs, loading } = useContext(BlogContext);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch("https://mts-blog-backend1.onrender.com/blogs");
-        const result = await res.json();
-        console.log("Full API Response:", result);
+  // Filter only Sports blogs
+  const data = blogs.filter(blog => blog.category === "Sports");
 
-        const blogs = Array.isArray(result) ? result : result.blogs;
-
-        if (Array.isArray(blogs)) {
-          // Filter by "Sports" category
-          const sportsBlogs = blogs.filter(blog => blog.category === "Sports");
-          setData(sportsBlogs);
-        } else {
-          console.warn("Unexpected data format:", result);
-        }
-      } catch (error) {
-        console.error("Error fetching blogs:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+ if (loading) return <LoadingSpinner/>;
 
   return (
     <div className="mt-12 w-full bg-white shadow-md rounded-lg pb-14">
@@ -38,32 +21,32 @@ function Sports() {
           <div>
             {data[0] && (
               <>
-              {[1, 2, 3, 4].map((i) => (
-                <div
-                  key={i}
-                  className="flex bg-blue-50 p-2 border-b-1 mt-4 first:mt-0 rounded-md"
-                >
-                  <img
-                    className="lg:min-w-14 lg:max-w-34 w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
-                    src={
-                      data[data.length - i]?.imageUrl ||
-                      "https://source.unsplash.com/600x400/?blog"
-                    }
-                    alt={data[data.length - i]?.title}
-                  />
+                {[1, 2, 3, 4].map((i) => (
+                  <div
+                    key={i}
+                    className="flex bg-blue-50 p-2 border-b-1 mt-4 first:mt-0 rounded-md"
+                  >
+                    <img
+                      className="lg:min-w-14 lg:max-w-34 w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
+                      src={
+                        data[data.length - i]?.imageUrl ||
+                        "https://source.unsplash.com/600x400/?blog"
+                      }
+                      alt={data[data.length - i]?.title}
+                    />
 
-                  <div className="p-2">
-                    <Link
-                      to={`/blogs/${data[data.length - i]?._id}`}
-                      className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
-                    >
-                      {data[data.length - i]?.title?.split(" ").slice(0, 4).join(" ") + '...'}
+                    <div className="p-2">
+                      <Link
+                        to={`/blogs/${data[data.length - i]?._id}`}
+                        className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
+                      >
+                        {data[data.length - i]?.title?.split(" ").slice(0, 4).join(" ") + '...'}
 
-                    </Link>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </>
+                ))}
+              </>
             )}
           </div>
         </div>
@@ -88,7 +71,7 @@ function Sports() {
                       className="text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
                     >
                       {data[data.length - 5]?.title?.split(" ").slice(0, 10).join(" ") + '...'}
-                      
+
                     </Link>
                   </div>
                   <p className="text-gray-700 text-sm line-clamp-3">
@@ -105,32 +88,32 @@ function Sports() {
           <div>
             {data[0] && (
               <>
-              {[6, 7, 8, 9].map((i) => (
-                <div
-                  key={i}
-                  className="flex bg-blue-50 p-2 border-b-1 mt-4 first:mt-0 rounded-md"
-                >
-                  <img
-                    className="lg:min-w-14 lg:max-w-34 w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
-                    src={
-                      data[data.length - i]?.imageUrl ||
-                      "https://source.unsplash.com/600x400/?blog"
-                    }
-                    alt={data[data.length - i]?.title}
-                  />
+                {[6, 7, 8, 9].map((i) => (
+                  <div
+                    key={i}
+                    className="flex bg-blue-50 p-2 border-b-1 mt-4 first:mt-0 rounded-md"
+                  >
+                    <img
+                      className="lg:min-w-14 lg:max-w-34 w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
+                      src={
+                        data[data.length - i]?.imageUrl ||
+                        "https://source.unsplash.com/600x400/?blog"
+                      }
+                      alt={data[data.length - i]?.title}
+                    />
 
-                  <div className="p-2">
-                    <Link
-                      to={`/blogs/${data[data.length - i]?._id}`}
-                      className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
-                    >
-                      {data[data.length - i]?.title?.split(" ").slice(0, 4).join(" ") + '...'}
+                    <div className="p-2">
+                      <Link
+                        to={`/blogs/${data[data.length - i]?._id}`}
+                        className="text-md font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors duration-200"
+                      >
+                        {data[data.length - i]?.title?.split(" ").slice(0, 4).join(" ") + '...'}
 
-                    </Link>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </>
+                ))}
+              </>
             )}
           </div>
         </div>
