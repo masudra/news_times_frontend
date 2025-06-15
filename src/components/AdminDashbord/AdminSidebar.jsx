@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { FaRegNewspaper, FaPlusSquare, FaHome } from "react-icons/fa";
+import { FaRegNewspaper, FaPlusSquare, FaHome, FaUsers } from "react-icons/fa";
 import { IoExit } from "react-icons/io5";
 
 export default function AdminSidebar() {
@@ -20,6 +20,9 @@ export default function AdminSidebar() {
         </Link>
         <Link to="/admin/add-blog" className="flex items-center gap-2 hover:underline">
           <FaPlusSquare /> Add Blog
+        </Link>
+        <Link to="/admin/users" className="flex items-center gap-2 hover:underline">
+          <FaUsers/> User List
         </Link>
         <Link to="/" className="flex items-center gap-2 hover:underline">
           <FaHome /> Go Back to Home

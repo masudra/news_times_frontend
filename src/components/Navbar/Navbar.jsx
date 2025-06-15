@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import { Fa42Group } from "react-icons/fa6";
+import { IoExit } from "react-icons/io5";
 
 const categories = [
   { id: 1, name: "sports", rout: "sports" },
@@ -196,7 +198,7 @@ const Navbar = () => {
           {isLoggedIn && (
             <Link
               to="/admin/blogs"
-              className="bg-black text-red-600 px-5 py-1.5 rounded-lg hover:bg-gray-900 transition font-semibold"
+              className="text-red-700 border-2 border-red-700 px-5 py-1.5 rounded-lg hover:bg-red-700 hover:text-white transition font-semibold"
             >
               Admin
             </Link>
@@ -205,10 +207,16 @@ const Navbar = () => {
           {isLoggedIn ? (
             <button
               onClick={handleLogout}
-              className="text-red-700 border-2 border-red-700 px-5 py-1.5 rounded-lg hover:bg-red-700 hover:text-white transition font-semibold"
+              className="relative group text-red-700 px-2 py-1.5 text-4xl"
             >
-              {t("logout")}
+              <IoExit />
+
+              {/* Tooltip text */}
+              <span className="absolute top-full left-1/2 -translate-x-1/2  text-sm bg-black text-white px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition duration-200 whitespace-nowrap z-10">
+                Logout
+              </span>
             </button>
+
           ) : (
             <Link
               to="/login"

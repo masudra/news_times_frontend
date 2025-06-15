@@ -12,6 +12,7 @@ import Donate from "../Pages/Donate";
 import StripeCheckout from "../components/Stripe/StripeCheckout";
 import Register from "../components/Auth/Register";
 import Login from "../components/Auth/Login";
+import UserList from "../components/AdminDashbord/UserList";
 
 // Admin Layout & Pages
 
@@ -79,6 +80,10 @@ export const router = createBrowserRouter([
       {
         path: "/admin/blogs/edit/:id",
         element: <EditBlog />,
+      },
+      {
+        path: "/admin/users",
+        element: <UserList />,
       },
     ],
   },

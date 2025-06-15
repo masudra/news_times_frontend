@@ -21,7 +21,7 @@ const Register = () => {
     try {
       const res = await axios.post('https://mts-blog-backend1.onrender.com/users', formData);
       toast.success(res.data.message || 'Registration successful!');
-      navigate('/admin/blogs');
+      navigate('/');
     } catch (err) {
       toast.error(err.response?.data?.error || 'Registration failed!');
     }
