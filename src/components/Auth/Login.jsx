@@ -5,79 +5,103 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Eye, EyeOff } from 'lucide-react';
 
 const Login = () => {
-    const navigate = useNavigate();
-    const [showPassword, setShowPassword] = useState(false);
-    const [formData, setFormData] = useState({ email: '', password: '' });
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({ email: '', password: '' });
 
-    const handleChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = e =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const res = await axios.post('https://mts-blog-backend1.onrender.com/login', formData);
-            localStorage.setItem('token', res.data.token);  // <-- 'res' use korte hobe
-            toast.success(res.data.message || 'Login successful!');
-            navigate('/admin/blogs');  // Redirect after login
-        } catch (err) {
-            toast.error(err.response?.data?.error || 'Login failed!');
-        }
-    };
+  const handleSubmit = async e => {
+    e.preventDefault();
+    try {
+      const res = await axios.post('https://mts-blog-backend1.onrender.com/login', formData);
+      localStorage.setItem('token', res.data.token);
+      toast.success(res.data.message || 'Login successful!');
+      navigate('/admin/blogs');
+    } catch (err) {
+      toast.error(err.response?.data?.error || 'Login failed!');
+    }
+  };
 
+  return (
+    <div className="w-screen h-screen flex items-center justify-center bg-gray-200 -mb-10 overflow-hidden">
+      <Toaster />
 
-    return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <Toaster />
-            <div className="max-w-md w-full bg-white p-6 rounded shadow">
-                <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
+      <div className="w-[1400px] h-[800px] flex rounded-lg overflow-hidden bg-white shadow-lg">
+        {/* Left Image Section */}
+        <div
+          className="hidden md:block w-1/2 bg-cover bg-center"
+          style={{ backgroundImage: "url('https://i.ibb.co/LDp8xcMF/download-2.jpg')" }}
+        ></div>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        className="w-full p-2 border rounded"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
+        {/* Right Login Form Section */}
+        <div className="w-full md:w-1/2 flex items-center justify-center bg-gray-100">
+          <div className="max-w-md w-full bg-white p-8 md:p-10 rounded-lg shadow-md">
+            <h2 className="text-3xl font-bold text-center mb-6">Login</h2>
 
-                    <div className="relative">
-                        <input
-                            type={showPassword ? 'text' : 'password'}
-                            name="password"
-                            placeholder="Password"
-                            className="w-full p-2 border rounded pr-10"
-                            value={formData.password}
-                            onChange={handleChange}
-                            required
-                        />
-                        <button
-                            type="button"
-                            className="absolute right-2 top-2 text-gray-500"
-                            onClick={() => setShowPassword(!showPassword)}
-                        >
-                            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                        </button>
-                    </div>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                className="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-400"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
 
-                    <div className="text-sm text-right">
-                        <button type="button" className="text-blue-600 hover:underline" onClick={() => toast('Password reset coming soon!')}>
-                            Forgot Password?
-                        </button>
-                    </div>
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  placeholder="Password"
+                  className="w-full p-3 border rounded pr-10 focus:outline-none focus:ring-2 focus:ring-green-400"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+                <button
+                  type="button"
+                  className="absolute right-3 top-3 text-gray-500"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
 
-                    <button type="submit" className="w-full p-2 bg-green-500 text-white rounded">Login</button>
-                </form>
+              <div className="text-sm text-right">
+                <button
+                  type="button"
+                  className="text-blue-600 hover:underline"
+                  onClick={() => toast('Password reset coming soon!')}
+                >
+                  Forgot Password?
+                </button>
+              </div>
 
-                <div className="mt-4 text-center text-sm">
-                    Don’t have an account?{' '}
-                    <button onClick={() => navigate('/register')} className="text-blue-600 hover:underline">
-                        Register
-                    </button>
-                </div>
+              <button
+                type="submit"
+                className="w-full py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded"
+              >
+                Login
+              </button>
+            </form>
+
+            <div className="mt-6 text-center text-sm">
+              Don’t have an account?{' '}
+              <button
+                onClick={() => navigate('/register')}
+                className="text-blue-600 hover:underline font-medium"
+              >
+                Register
+              </button>
             </div>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Login;

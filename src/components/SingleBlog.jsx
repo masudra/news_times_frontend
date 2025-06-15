@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import axios from "axios";
 import { FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { BlogContext } from "../context/BlogContext";
