@@ -131,21 +131,31 @@ const Navbar = () => {
                 </svg>
               </span>
               {filteredResults.length > 0 && (
-                <ul className="absolute z-20 bg-white border border-red-600 w-full mt-1 rounded-lg shadow-md max-h-60 overflow-y-auto text-black">
+                <ul className="absolute z-20 bg-white border p-2 border-red-400 w-full mt-1 rounded-lg shadow-md max-h-60 overflow-y-auto text-black">
                   {filteredResults.map((item) => (
-                    <li key={item._id} className="px-4 py-2 hover:bg-red-100 cursor-pointer">
+                    <li
+                      key={item._id}
+                      className="flex items-center gap-3 px-4 py-2 hover:bg-red-200 hover:rounded-sm cursor-pointer"
+                    >
                       <Link
                         to={`/blogs/${item._id}`}
+                        className="flex items-center gap-3 w-full"
                         onClick={() => {
                           setSearchTerm("");
                           setFilteredResults([]);
                           setIsOpen(false);
                         }}
                       >
-                        {item.title}
+                        <img
+                          src={item.imageUrl || "/placeholder.jpg"}
+                          alt={item.title}
+                          className="w-12 h-12 object-cover rounded"
+                        />
+                        <span className="text-black">{item.title}</span>
                       </Link>
                     </li>
                   ))}
+
                 </ul>
               )}
             </div>
