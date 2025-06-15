@@ -28,7 +28,7 @@ const Register = () => {
   };
 
   return (
-    <div className="w-screen h-screen flex items-center justify-center bg-gray-200 overflow-hidden">
+    <div className="w-screen h-screen flex items-center justify-center bg-gray-200 overflow-hidden -mb-10">
       <Toaster />
 
       <div className="w-[1400px] h-[800px] flex rounded-lg overflow-hidden bg-white shadow-lg">
@@ -85,7 +85,7 @@ const Register = () => {
 
               <button
                 type="submit"
-                className="w-full py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded"
+                className="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded"
               >
                 Register
               </button>

@@ -22,7 +22,7 @@ const SingleBlog = () => {
         <div className="hidden lg:block">
 
           <div className="bg-gray-50 p-4 rounded space-y-4 w-full">
-            <h2 className="text-xl font-semibold mb-3 p-4  shadow shadow-red-400">📌 Recent Posts</h2>
+            <h2 className="text-2xl font-semibold mb-3 p-4  shadow shadow-red-400">📌 Recent Posts</h2>
             {loading ? (
               <LoadingSpinner />
             ) : (
@@ -87,71 +87,87 @@ const SingleBlog = () => {
         </div>
 
         {/* Right Sidebar - only for desktop */}
+        <div>
 
-        <div className="hidden lg:block">
-          <div className="bg-gray-50 p-4 rounded space-y-4">
-            <h2 className="text-xl font-semibold mb-3 p-4  shadow shadow-red-400">🔥 Trending Posts</h2>
-            {loading ? (
-              <LoadingSpinner />
-            ) : (
-              trendingPosts.map((trendpost) => (
-                <Link
-                  to={`/blogs/${trendpost._id}`}
-                  key={trendpost._id}
-                  className="flex items-center justify-between bg-white rounded-lg shadow hover:shadow-md transition overflow-hidden p-2"
-                >
-                  <div className="w-2/3 pr-3">
-                    <h3 className="font-medium text-sm text-gray-800">
-                      {trendpost.title.length > 50
-                        ? trendpost.title.slice(0, 50) + "..."
-                        : trendpost.title}
-                    </h3>
-                  </div>
-                  {trendpost.imageUrl && (
-                    <div className="w-1/3">
-                      <img
-                        src={trendpost.imageUrl}
-                        alt={trendpost.title}
-                        className="w-full h-16 object-cover rounded"
-                      />
+          <div className="hidden lg:block">
+            <div className="bg-gray-50 p-4 rounded space-y-4">
+              <h2 className="text-2xl font-semibold mb-3 p-4  shadow shadow-red-400">🔥 Trending Posts</h2>
+              {loading ? (
+                <LoadingSpinner />
+              ) : (
+                trendingPosts.map((trendpost) => (
+                  <Link
+                    to={`/blogs/${trendpost._id}`}
+                    key={trendpost._id}
+                    className="flex items-center justify-between bg-white rounded-lg shadow hover:shadow-md transition overflow-hidden p-2"
+                  >
+                    <div className="w-2/3 pr-3">
+                      <h3 className="font-medium text-sm text-gray-800">
+                        {trendpost.title.length > 50
+                          ? trendpost.title.slice(0, 50) + "..."
+                          : trendpost.title}
+                      </h3>
                     </div>
-                  )}
-                </Link>
-              ))
-            )}
-            {/* Social share icons */}
-            <div className="mt-6">
-              <p className="font-semibold mb-2">Share this blog:</p>
-              <div className="flex space-x-4 text-2xl text-gray-600">
-                <a
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-blue-600"
-                >
-                  <FaFacebook />
-                </a>
-                <a
-                  href={`https://twitter.com/intent/tweet?url=${window.location.href}&text=${blog.title}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-sky-500"
-                >
-                  <FaTwitter />
-                </a>
-                <a
-                  href={`https://www.linkedin.com/shareArticle?mini=true&url=${window.location.href}&title=${blog.title}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-blue-800"
-                >
-                  <FaLinkedin />
-                </a>
-              </div>
+                    {trendpost.imageUrl && (
+                      <div className="w-1/3">
+                        <img
+                          src={trendpost.imageUrl}
+                          alt={trendpost.title}
+                          className="w-full h-16 object-cover rounded"
+                        />
+                      </div>
+                    )}
+                  </Link>
+                ))
+              )}
+
             </div>
+
+
           </div>
 
+          <div className="hidden lg:block mt-4">
+            <div className=" p-4 rounded space-y-4 shadow shadow-red-400">
+              <h2 className="text-2xl font-semibold mb-3 p-">Share this blog:</h2>
+              {/* Social share icons */}
+              <div className="mt-6">
+                <div className="flex space-x-4 text-2xl text-gray-600">
+                  <a
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-blue-600"
+                  >
+                    <FaFacebook />
+                  </a>
+                  <a
+                    href={`https://twitter.com/intent/tweet?url=${window.location.href}&text=${blog.title}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-sky-500"
+                  >
+                    <FaTwitter />
+                  </a>
+                  <a
+                    href={`https://www.linkedin.com/shareArticle?mini=true&url=${window.location.href}&title=${blog.title}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-blue-800"
+                  >
+                    <FaLinkedin />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+
+
         </div>
+
+
 
       </div>
 

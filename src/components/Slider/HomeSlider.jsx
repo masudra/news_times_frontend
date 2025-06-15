@@ -26,7 +26,7 @@ const HomeSlider = () => {
   ];
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 800,
     autoplay: true,
@@ -38,7 +38,14 @@ const HomeSlider = () => {
   };
 
   return (
-    <div style={{ maxWidth: "1400px", margin: "0 auto", width: "100%" }}>
+    <div
+      style={{
+        maxWidth: "1400px",
+        margin: "0 auto",
+        width: "100%",
+        marginTop: "20px", 
+      }}
+    >
       <Slider {...settings}>
         {slides.map((slide) => (
           <div key={slide.id}>

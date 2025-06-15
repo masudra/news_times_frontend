@@ -16,7 +16,7 @@ const Login = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/login', formData);
+      const res = await axios.post('https://mts-blog-backend1.onrender.com/login', formData);
       const { message, user } = res.data;
 
       toast.success(message || 'Login successful!');
@@ -36,12 +36,12 @@ const Login = () => {
   };
 
   return (
-    <div className="w-screen h-screen flex items-center justify-center bg-gray-200 overflow-hidden">
+    <div className="w-screen h-screen flex items-center justify-center bg-gray-200 overflow-hidden -mb-10">
       <Toaster />
       <div className="w-[1400px] h-[800px] flex rounded-lg overflow-hidden bg-white shadow-lg">
         <div
           className="hidden md:block w-1/2 bg-cover bg-center"
-          style={{ backgroundImage: "url('https://i.ibb.co/LDp8xcMF/download-2.jpg')" }}
+          style={{ backgroundImage: "url('https://i.ibb.co/twyZLk9Q/1641200554997.jpg')" }}
         ></div>
         <div className="w-full md:w-1/2 flex items-center justify-center bg-gray-100">
           <div className="max-w-md w-full bg-white p-8 md:p-10 rounded-lg shadow-md">
@@ -78,7 +78,7 @@ const Login = () => {
 
               <button
                 type="submit"
-                className="w-full py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded"
+                className="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded"
               >
                 Login
               </button>

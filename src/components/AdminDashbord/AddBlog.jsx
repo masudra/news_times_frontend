@@ -164,10 +164,10 @@ const AddBlog = () => {
                     <div className="pt-4">
                         <button
                             type="submit"
-                            className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition duration-300 font-semibold"
+                            className="w-full bg-red-600 text-white py-3 rounded-md hover:bg-red-700 transition duration-300 font-semibold"
                             disabled={uploading}
                         >
-                            ✅ Submit Blog
+                             Submit Blog
                         </button>
                     </div>
                 </form>

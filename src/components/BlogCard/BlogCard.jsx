@@ -78,7 +78,7 @@ const BlogCard = () => {
 
   return (
     <div className="max-w-[1400px] mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6 text-center">All News</h1>
+      <h1 className="text-5xl font-bold  text-center">All News</h1>
 
       {/* Filters */}
       <div className="mb-6 flex justify-between space-x-4 flex-wrap">
@@ -138,7 +138,13 @@ const BlogCard = () => {
               alt={blog.title}
             />
             <div className="p-4">
-              <h2 className="text-xl font-semibold text-gray-800 mb-1">{blog.title}</h2>
+
+              <Link
+                to={`/blogs/${blog._id}`}
+                className=" text-xl font-semibold text-gray-800  hover:text-blue-600 transition-colors duration-200"
+              >
+                {blog.title}
+              </Link>
               <p className="text-gray-500 text-sm mb-2">
                 <span className="font-medium">{blog.category}</span> ·{" "}
                 {new Date(blog.date).toLocaleDateString("en-US", {
@@ -152,7 +158,7 @@ const BlogCard = () => {
                 <span className="text-sm text-gray-600">👤 {blog.author}</span>
                 <Link
                   to={`/blogs/${blog._id}`}
-                  className="text-blue-600 hover:underline text-sm"
+                  className="text-red-700 hover:underline text-sm"
                 >
                   Read More
                 </Link>
@@ -167,11 +173,10 @@ const BlogCard = () => {
         <button
           onClick={() => goToPage(currentPage - 1)}
           disabled={currentPage === 1}
-          className={`px-3 py-1 rounded border ${
-            currentPage === 1
-              ? "cursor-not-allowed border-gray-300 text-gray-400"
-              : "border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
-          }`}
+          className={`px-3 py-1 rounded border ${currentPage === 1
+            ? "cursor-not-allowed border-gray-300 text-gray-400"
+            : "border-red-700 text-red-700 hover:bg-red-700 hover:text-white"
+            }`}
         >
           Prev
         </button>
@@ -180,11 +185,10 @@ const BlogCard = () => {
           <button
             key={pageNum}
             onClick={() => goToPage(pageNum)}
-            className={`px-3 py-1 rounded border ${
-              pageNum === currentPage
-                ? "bg-blue-600 text-white border-blue-600"
-                : "border-gray-300 text-gray-700 hover:bg-blue-100"
-            }`}
+            className={`px-3 py-1 rounded border ${pageNum === currentPage
+              ? "bg-red-700 text-white border-red-700"
+              : "border-gray-300 text-gray-700 hover:bg-blue-100"
+              }`}
           >
             {pageNum}
           </button>
@@ -193,11 +197,10 @@ const BlogCard = () => {
         <button
           onClick={() => goToPage(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className={`px-3 py-1 rounded border ${
-            currentPage === totalPages
-              ? "cursor-not-allowed border-gray-300 text-gray-400"
-              : "border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
-          }`}
+          className={`px-3 py-1 rounded border ${currentPage === totalPages
+            ? "cursor-not-allowed border-gray-300 text-gray-400"
+            : "border-red-700 text-red-700 hover:bg-red-700 hover:text-white"
+            }`}
         >
           Next
         </button>

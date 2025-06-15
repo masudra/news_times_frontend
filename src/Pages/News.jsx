@@ -10,7 +10,7 @@ function News() {
 
   return (
     <div className="mt-20 w-full bg-white shadow-md rounded-lg pb-14">
-      <h1 className="text-3xl font-bold mb-6 text-center"> Latest News</h1>
+      <h1 className="text-5xl font-bold my-10 text-center"> Latest News</h1>
       {
         loading ? <LoadingSpinner /> : <>
           <div className="w-full max-w-[1400px] px-4 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -51,7 +51,7 @@ function News() {
                     {[3, 4, 5, 6].map((i) => (
                       <div
                         key={i}
-                        className="flex bg-blue-50 p-2 border-b-1 mt-4 first:mt-0 rounded-md"
+                        className="flex bg-blue-50 p-2 border-b-1 border-red-700 mt-4 first:mt-0 rounded-md"
                       >
                         <img
                           className="lg:min-w-14 lg:max-w-34 w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
@@ -85,7 +85,7 @@ function News() {
                     {[7, 8, 9, 10].map((i) => (
                       <div
                         key={i}
-                        className="flex bg-blue-50 p-2 border-b-1 mt-4 first:mt-0 rounded-md"
+                        className="flex bg-blue-50 p-2 border-b-1 border-red-700 mt-4 first:mt-0 rounded-md"
                       >
                         <img
                           className="lg:min-w-14 lg:max-w-34 w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
@@ -119,7 +119,7 @@ function News() {
                     {[11, 12, 13, 14].map((i) => (
                       <div
                         key={i}
-                        className="flex bg-blue-50 p-2 border-b-1 mt-4 first:mt-0 rounded-md"
+                        className="flex bg-blue-50 p-2 border-b-1 border-red-700 mt-4 first:mt-0 rounded-md"
                       >
                         <img
                           className="lg:min-w-14 lg:max-w-34 w-full h-20 object-cover overflow-hidden transition-all duration-300 hover:scale-105"
