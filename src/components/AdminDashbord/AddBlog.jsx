@@ -13,7 +13,7 @@ const AddBlog = () => {
 
     const [uploading, setUploading] = useState(false);
 
-    const imgbbApiKey = "2e9ccc73a7d46f02f4c32104024a62b9"; 
+    const imgbbApiKey = "2e9ccc73a7d46f02f4c32104024a62b9";
 
     const formattedDate = new Date().toLocaleDateString("en-US", {
         year: "numeric",
@@ -54,12 +54,13 @@ const AddBlog = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const today = new Date().toISOString().split("T")[0];
+        const now = new Date().toISOString(); 
 
         const blogWithDate = {
             ...blog,
-            date: today,
+            date: now,
         };
+
 
         try {
             const res = await axios.post("https://mts-blog-backend1.onrender.com/blogs", blogWithDate);
@@ -167,7 +168,7 @@ const AddBlog = () => {
                             className="w-full bg-red-600 text-white py-3 rounded-md hover:bg-red-700 transition duration-300 font-semibold"
                             disabled={uploading}
                         >
-                             Submit Blog
+                            Submit Blog
                         </button>
                     </div>
                 </form>

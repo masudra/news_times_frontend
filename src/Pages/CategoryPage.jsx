@@ -7,11 +7,11 @@ import LoadingSpinner from "../components/LoadingSpinner";
 const CategoryPage = () => {
     const { name } = useParams();
     const { blogs, loading } = useContext(BlogContext);
-
+    
     const filteredPosts = useMemo(() => {
         return blogs
             .filter(post => post.category?.toLowerCase() === name?.toLowerCase())
-            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            .sort((a, b) => new Date(b.date) - new Date(a.date));
     }, [blogs, name]);
 
     const slicedPosts = useMemo(() => filteredPosts.slice(0, 20), [filteredPosts]);
