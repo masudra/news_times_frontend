@@ -4,15 +4,15 @@ import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { IoExit } from "react-icons/io5";
 
-const categories = [
-  { id: 1, name: "sports", rout: "sports" },
-  { id: 2, name: "entertainment", rout: "entertainment" },
-  { id: 3, name: "technology", rout: "technology" },
-  { id: 4, name: "health", rout: "health" },
-  { id: 5, name: "education", rout: "education" },
-  { id: 6, name: "politics", rout: "politics" },
-  { id: 7, name: "international", rout: "international" },
-];
+// const categories = [
+//   { id: 1, name: "sports", rout: "sports" },
+//   { id: 2, name: "entertainment", rout: "entertainment" },
+//   { id: 3, name: "technology", rout: "technology" },
+//   { id: 4, name: "health", rout: "health" },
+//   { id: 5, name: "education", rout: "education" },
+//   { id: 6, name: "politics", rout: "politics" },
+//   { id: 7, name: "international", rout: "international" },
+// ];
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,6 +22,8 @@ const Navbar = () => {
   const [blogs, setBlogs] = useState([]);
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const [categories, setCategories] = useState([]);
+
 
   useEffect(() => {
     const checkAuth = () => {
@@ -44,7 +46,15 @@ const Navbar = () => {
   useEffect(() => {
     axios
       .get("https://mts-blog-backend1.onrender.com/blogs")
-      .then((res) => setBlogs(res.data))
+      .then((res) => {
+        setBlogs(res.data);
+
+        // Extract unique categories dynamically
+        const unique = [
+          ...new Set(res.data.map((item) => item.category?.toLowerCase()))
+        ];
+        setCategories(unique);
+      })
       .catch((err) => console.error("Error fetching blogs:", err));
   }, []);
 
@@ -101,9 +111,8 @@ const Navbar = () => {
         </div>
 
         <div
-          className={`flex flex-col md:flex-row items-center gap-4 w-full md:w-auto ${
-            isOpen ? "block" : "hidden"
-          } md:block`}
+          className={`flex flex-col md:flex-row items-center gap-4 w-full md:w-auto ${isOpen ? "block" : "hidden"
+            } md:block`}
         >
           {/* Search Input */}
           <div className="w-full flex justify-center lg:ml-23 mb-2">
@@ -171,13 +180,13 @@ const Navbar = () => {
               >
                 {t("home")}
               </Link>
-              {categories.map((cat) => (
+              {categories.map((cat, i) => (
                 <Link
-                  key={cat.id}
-                  to={`/${cat.rout}`}
+                  key={i}
+                  to={`${cat}`}
                   className="hover:text-red-900 px-3 py-2 rounded-md font-medium whitespace-nowrap"
                 >
-                  {t(`category.${cat.name}`)}
+                  {t(`${cat}`) || cat}
                 </Link>
               ))}
             </div>

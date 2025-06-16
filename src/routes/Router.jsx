@@ -13,6 +13,8 @@ import StripeCheckout from "../components/Stripe/StripeCheckout";
 import Register from "../components/Auth/Register";
 import Login from "../components/Auth/Login";
 import UserList from "../components/AdminDashbord/UserList";
+import CategoryPage from "../Pages/CategoryPage";
+import NotFoundPage from "../Pages/NotFoundPage";
 
 // Admin Layout & Pages
 
@@ -54,14 +56,14 @@ export const router = createBrowserRouter([
         path: "/login",
         element: <Login />,
       },
+      {
+        path: "/:name",
+        element: <CategoryPage />,
+      },
 
       {
         path: "*",
-        element: (
-          <div className="text-center py-20 text-red-600 text-xl">
-            404 - Page Not Found
-          </div>
-        ),
+        element:<NotFoundPage/>
       },
     ],
   },
