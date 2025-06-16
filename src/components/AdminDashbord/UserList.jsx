@@ -42,44 +42,51 @@ const UserList = () => {
     }, []);
 
     return (
-        <div className="max-w-4xl mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">User List</h1>
-            <table className="min-w-full bg-white border border-gray-300">
-                <thead>
-                    <tr className="bg-gray-100">
-                        <th className="py-2 px-4 border-b">Name</th>
-                        <th className="py-2 px-4 border-b">Email</th>
-                        <th className="py-2 px-4 border-b">Role</th>
-                        <th className="py-2 px-4 border-b">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {users.map(user => (
-                        <tr key={user._id}>
-                            <td className="py-2 px-4 border-b">{user.name}</td>
-                            <td className="py-2 px-4 border-b">{user.email}</td>
-                            <td className="py-2 px-4 border-b">
-                                <select
-                                    value={selectedRoles[user._id] || user.role}
-                                    onChange={(e) => handleSelectChange(user._id, e.target.value)}
-                                    className="border p-1 rounded"
-                                >
-                                    <option value="user">User</option>
-                                    <option value="admin">Admin</option>
-                                </select>
-                            </td>
-                            <td className="py-2 px-4 border-b">
-                                <button
-                                    onClick={() => handleRoleUpdate(user._id)}
-                                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                                >
-                                    Update
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+        <div className="min-h-screen bg-gray-100 py-10 px-4">
+            <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-xl overflow-hidden">
+                <div className="bg-black py-4 px-6">
+                    <h1 className="text-3xl font-bold text-white">User Management</h1>
+                    <p className="text-sm text-red-500">Manage user roles with ease</p>
+                </div>
+                <div className="overflow-x-auto">
+                    <table className="min-w-full divide-y divide-gray-200">
+                        <thead className="bg-gray-50">
+                            <tr>
+                                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Name</th>
+                                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Email</th>
+                                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Role</th>
+                                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody className="bg-white divide-y divide-gray-200">
+                            {users.map(user => (
+                                <tr key={user._id} className="hover:bg-gray-50">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">{user.name}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{user.email}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <select
+                                            value={selectedRoles[user._id] || user.role}
+                                            onChange={(e) => handleSelectChange(user._id, e.target.value)}
+                                            className="border border-gray-300 text-sm px-3 py-1 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+                                        >
+                                            <option value="user">User</option>
+                                            <option value="admin">Admin</option>
+                                        </select>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <button
+                                            onClick={() => handleRoleUpdate(user._id)}
+                                            className="bg-red-600 text-white text-sm px-4 py-1.5 rounded hover:bg-red-700 transition"
+                                        >
+                                            Update
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     );
 };
