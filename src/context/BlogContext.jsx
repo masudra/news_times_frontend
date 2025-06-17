@@ -12,7 +12,7 @@ export const BlogProvider = ({ children }) => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:5000/blogs?lang=${language}`)
+    axios.get(`https://mts-blog-backend1.onrender.com/blogs?lang=${language}`)
       .then(res => {
         setBlogs(res.data);
         setLoading(false);

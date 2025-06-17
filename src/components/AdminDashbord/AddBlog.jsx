@@ -68,7 +68,7 @@ const AddBlog = () => {
         };
 
         try {
-            const res = await axios.post("http://localhost:5000/blogs", blogWithDate);
+            const res = await axios.post("https://mts-blog-backend1.onrender.com/blogs", blogWithDate);
             alert("✅ Blog created successfully!");
             console.log(res.data);
             setBlog({
