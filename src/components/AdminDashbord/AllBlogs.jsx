@@ -1,31 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { BlogContext } from "../../context/BlogContext";
 
 export default function AllBlogs() {
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("https://mts-blog-backend1.onrender.com/blogs")
-      .then(res => res.json())
-      .then(data => {
-        setBlogs(data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error("Failed to fetch blogs:", error);
-        toast.error("Failed to load blogs");
-        setLoading(false);
-      });
-  }, []);
+  const { blogs, loading } = useContext(BlogContext);
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this blog?");
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`https://mts-blog-backend1.onrender.com/blogs/${id}`, {
+      const res = await fetch(`http://localhost:5000/blogs/${id}`, {
         method: "DELETE",
       });
 

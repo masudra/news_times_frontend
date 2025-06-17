@@ -14,7 +14,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('https://mts-blog-backend1.onrender.com/login', formData);
+      const res = await axios.post('http://localhost:5000/login', formData);
       localStorage.setItem('token', res.data.token);
 
       toast.success(res.data.message || 'Login successful!');

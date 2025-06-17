@@ -1,28 +1,20 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { BlogContext } from "../../context/BlogContext";
+import { useTranslation } from "react-i18next";
 
 const BlogCard = () => {
-  const [blogs, setBlogs] = useState([]);
   const [sortOption, setSortOption] = useState("latest");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
+  const { t } = useTranslation();
 
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const res = await axios.get("https://mts-blog-backend1.onrender.com/blogs");
-        setBlogs(res.data);
-      } catch (err) {
-        console.error("Failed to fetch blogs", err);
-      }
-    };
 
-    fetchBlogs();
-  }, []);
+  const { blogs, loading } = useContext(BlogContext);
 
-  const categories = ["all", ...new Set(blogs.map((b) => b.category))];
+  // Safely extract unique categories (excluding undefined/null)
+  const categories = ["all", ...new Set(blogs.map((b) => b.category).filter(Boolean))];
 
   const filteredBlogs =
     categoryFilter === "all"
@@ -76,15 +68,17 @@ const BlogCard = () => {
     return pages.filter((page) => page >= 1 && page <= totalPages);
   };
 
+
+
   return (
     <div className="max-w-[1400px] mx-auto px-4 py-8">
-      <h1 className="text-5xl font-bold  text-center">All News</h1>
+      <h1 className="text-4xl font-bold text-center">{t("allNews")}</h1>
 
       {/* Filters */}
       <div className="mb-6 flex justify-between space-x-4 flex-wrap">
         <div>
           <label htmlFor="category" className="mr-2 font-medium text-gray-700">
-            Filter by Category:
+            {t("filterByCategory")}:
           </label>
           <select
             id="category"
@@ -106,8 +100,7 @@ const BlogCard = () => {
         {/* Sort */}
         <div>
           <label htmlFor="sort" className="mr-2 font-medium text-gray-700">
-            Sort by:
-          </label>
+            {t("sortBy")}:</label>
           <select
             id="sort"
             value={sortOption}
@@ -117,10 +110,10 @@ const BlogCard = () => {
             }}
             className="border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="latest">Latest</option>
-            <option value="oldest">Oldest</option>
-            <option value="az">A to Z</option>
-            <option value="popular">Popular</option>
+            <option value="latest">{t("latest")}</option>
+            <option value="oldest">{t("oldest")}</option>
+            <option value="az">{t("aToZ")}</option>
+            <option value="popular">{t("popular")}</option>
           </select>
         </div>
       </div>
@@ -135,32 +128,35 @@ const BlogCard = () => {
             <img
               className="w-full h-48 object-cover"
               src={blog.imageUrl || "https://source.unsplash.com/600x400/?blog"}
-              alt={blog.title}
+              alt={blog.title || "Blog image"}
             />
             <div className="p-4">
-
               <Link
                 to={`/blogs/${blog._id}`}
-                className=" text-xl font-semibold text-gray-800  hover:text-blue-600 transition-colors duration-200"
+                className="text-xl font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200"
               >
-                {blog.title}
+                {blog.title || "Untitled Blog"}
               </Link>
               <p className="text-gray-500 text-sm mb-2">
-                <span className="font-medium">{blog.category}</span> ·{" "}
-                {new Date(blog.date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
+                <span className="font-medium">{blog.category || "Uncategorized"}</span> ·{" "}
+                {blog.date
+                  ? new Date(blog.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })
+                  : "No Date"}
               </p>
-              <p className="text-gray-700 text-sm line-clamp-3">{blog.summary}</p>
+              <p className="text-gray-700 text-sm line-clamp-3">
+                {blog.summary || "No summary available."}
+              </p>
               <div className="mt-4 flex justify-between items-center">
-                <span className="text-sm text-gray-600">👤 {blog.author}</span>
+                <span className="text-sm text-gray-600">👤 {blog.author || "Unknown"}</span>
                 <Link
                   to={`/blogs/${blog._id}`}
                   className="text-red-700 hover:underline text-sm"
                 >
-                  Read More
+                  {t("readMore")}
                 </Link>
               </div>
             </div>
@@ -178,8 +174,7 @@ const BlogCard = () => {
             : "border-red-700 text-red-700 hover:bg-red-700 hover:text-white"
             }`}
         >
-          Prev
-        </button>
+          {t("prev")} </button>
 
         {getVisiblePages().map((pageNum) => (
           <button
@@ -202,7 +197,7 @@ const BlogCard = () => {
             : "border-red-700 text-red-700 hover:bg-red-700 hover:text-white"
             }`}
         >
-          Next
+          {t("next")}
         </button>
       </div>
     </div>

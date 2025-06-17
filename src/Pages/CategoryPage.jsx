@@ -2,12 +2,14 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { useContext, useMemo } from "react";
 import { BlogContext } from "../context/BlogContext";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { useTranslation } from "react-i18next";
 
 
 const CategoryPage = () => {
     const { name } = useParams();
     const { blogs, loading } = useContext(BlogContext);
-    
+    const { t } = useTranslation();
+
     const filteredPosts = useMemo(() => {
         return blogs
             .filter(post => post.category?.toLowerCase() === name?.toLowerCase())
@@ -15,7 +17,6 @@ const CategoryPage = () => {
     }, [blogs, name]);
 
     const slicedPosts = useMemo(() => filteredPosts.slice(0, 20), [filteredPosts]);
-
 
     if (loading) return <LoadingSpinner />;
 
@@ -28,7 +29,7 @@ const CategoryPage = () => {
         <div>
             <div
                 className=" w-full bg-white shadow-md rounded-lg pb-10">
-                <h1 className="text-5xl font-bold my-10 text-center">Category: {name}</h1>
+                <h1 className="text-4xl font-bold my-10 text-center">{t("category")} : {name}</h1>
 
                 <div
                     className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
