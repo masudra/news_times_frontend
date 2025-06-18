@@ -12,7 +12,6 @@ const Home = () => {
       <Sports/>
       <Entertainment/>
       <BlogCard />
-      <h1>hi</h1>
     </div>
   );
 };
