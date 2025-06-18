@@ -18,7 +18,7 @@ const SingleBlog = () => {
   if (!blog) return <div className="text-center py-10 text-2xl text-red-700">{t("blogNotFound")}</div>;
 
   return (
-    <div className="max-w-full lg:max-w-[1400px] mx-auto p-4 h-screen">
+    <div className="max-w-full lg:max-w-[1400px] mx-auto p-4 min-h-screen">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_3fr_1fr] gap-4 h-full">
 
         {/* Left Sidebar - only for desktop */}

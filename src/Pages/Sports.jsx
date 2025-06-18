@@ -18,8 +18,8 @@ function Sports() {
 
 
   return (
-    <div className="mt-20 w-full bg-white shadow-md rounded-lg pb-14">
-      <h1 className="text-4xl font-bold my-10 text-center">{t("sports")}</h1>
+    <div className="lg:mt-20  md:mt-10 sm:mt-6 w-full bg-white shadow-md rounded-lg pb-14">
+      <h1 className="text-4xl font-bold my-8 text-center">{t("sports")}</h1>
 
       <div className="w-full max-w-[1400px] px-4 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_2fr_1fr] gap-4">
         {/* Column 1 */}

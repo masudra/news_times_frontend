@@ -11,8 +11,8 @@ function News() {
 
   const latestBlogs = [...blogs].reverse();
   return (
-    <div className="mt-20 w-full bg-white shadow-md rounded-lg pb-14">
-      <h1 className="text-4xl font-bold my-10 text-center"> {t("latestNews")}</h1>
+    <div className="lg:mt-20  md:mt-10 sm:mt-6 w-full bg-white shadow-md rounded-lg pb-14">
+      <h1 className="text-4xl font-bold my-8 text-center"> {t("latestNews")}</h1>
 
       {loading ? (
         <LoadingSpinner />

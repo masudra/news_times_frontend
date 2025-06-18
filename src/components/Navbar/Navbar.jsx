@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { IoExit } from "react-icons/io5";
 import { LanguageContext } from "../LanguageContext";
 import { BlogContext } from "../../context/BlogContext";
+import { FaUser } from "react-icons/fa";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -16,6 +17,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const { blogs, loading } = useContext(BlogContext);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
 
   useEffect(() => {
@@ -23,7 +25,6 @@ const Navbar = () => {
     const uniqueCategories = [...new Set(blogs.map(item => item.category?.toLowerCase()))];
     setCategories(uniqueCategories);
   }, [blogs, language]);
-
 
   useEffect(() => {
     const checkAuth = () => {
@@ -57,14 +58,11 @@ const Navbar = () => {
           ? blog.title
           : blog.title?.[language];
 
-      console.log("📝 Final title used for search:", title);
-
       if (!title) return false;
 
       return title.toLowerCase().includes(trimmedValue);
     });
 
-    console.log("✅ Filtered Results:", results);
     setFilteredResults(results);
   };
 
@@ -79,38 +77,41 @@ const Navbar = () => {
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-[1400px] mx-auto px-4 py-2 flex flex-col md:flex-row items-center justify-between gap-4">
+        {/* Logo and Mobile Menu Button */}
         <div className="flex items-center justify-between w-full md:w-auto">
           <Link to="/">
             <img src="./logo.png" alt="Logo" className="h-12 w-full" />
           </Link>
-          <button
-            className="md:hidden text-red-700"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle Menu"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-              />
-            </svg>
-          </button>
+          <div className="flex items-center gap-4 md:hidden">
+            <button
+              className="text-red-700"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle Menu"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+                />
+              </svg>
+            </button>
+          </div>
         </div>
 
-        <div className={`flex flex-col md:flex-row items-center gap-4 w-full md:w-auto ${isOpen ? "block" : "hidden"} md:block`}>
-          {/* Search */}
-          <div className="w-full flex justify-center lg:ml-23 mb-2">
-            <div className="relative w-full max-w-md">
+        {/* Mobile Menu Content */}
+        <div className={`${isOpen ? "block" : "hidden"} md:flex md:flex-1 md:flex-col md:items-center md:justify-between w-full md:w-auto`}>
+          {/* Search - Visible on mobile when menu is open */}
+          <div className="w-full mb-4 md:mb-0 md:max-w-md md:mx-4">
+            <div className="relative w-full">
               <input
                 type="text"
                 placeholder={t("search_placeholder")}
                 value={searchTerm}
                 onChange={handleSearchChange}
-                className="w-full pl-12 pr-4 py-1 border-2 border-red-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-black text-lg"
+                className="w-full pl-12 pr-4 py-2 border-2 border-red-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-black text-lg"
               />
-
               <span className="absolute left-4 top-3 text-red-600">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
@@ -162,27 +163,107 @@ const Navbar = () => {
                   )}
                 </ul>
               )}
-
-
             </div>
           </div>
 
           {/* Categories */}
-          <nav className="w-full md:w-auto">
-            <div className="flex gap-3 overflow-x-auto scrollbar-hide px-2 font-medium text-black text-md">
-              <Link to="/" className="hover:text-red-900 px-3 py-2 rounded-md font-medium whitespace-nowrap">
+          <nav className="w-full mb-4 md:mb-0">
+            <div className="flex mb-2 md:flex-row gap-1 md:gap-3 overflow-x-auto scrollbar-hide px-2 font-medium text-black text-md">
+              <Link
+                to="/"
+                className="hover:text-red-900 px-3 py-2 rounded-md font-medium whitespace-nowrap"
+                onClick={() => setIsOpen(false)}
+              >
                 {t("home")}
               </Link>
               {categories.map((cat, i) => (
-                <Link key={i} to={`/${cat}`} className="hover:text-red-900 px-3 py-2 rounded-md font-medium whitespace-nowrap">
+                <Link
+                  key={i}
+                  to={`/${cat}`}
+                  className="hover:text-red-900 px-3 py-2 rounded-md font-medium whitespace-nowrap"
+                  onClick={() => setIsOpen(false)}
+                >
                   {t(cat) || cat}
                 </Link>
               ))}
             </div>
           </nav>
+
+          {/* Mobile Controls */}
+          <div className="flex flex-col md:hidden gap-4 w-full px-2 pb-4">
+            <div className="flex justify-between items-center w-full">
+              {/* Language Select */}
+              <select
+                value={language}
+                onChange={(e) => changeLanguage(e.target.value)}
+                className="border-2 border-red-600 text-red-700 px-3 py-1.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+              >
+                <option value="en">English</option>
+                <option value="bn">বাংলা</option>
+              </select>
+
+              {/* Donate Link */}
+              <Link
+                to="/donate"
+                className="text-red-700 border-2 border-red-700 px-5 py-1.5 rounded-lg hover:bg-red-700 hover:text-white transition font-semibold"
+                onClick={() => setIsOpen(false)}
+              >
+                {t("donate")}
+              </Link>
+
+              {/* Conditional: Logged In vs Not Logged In */}
+              {isLoggedIn ? (
+                <div className="relative">
+                  {/* Profile Icon (Button) */}
+                  <button
+                    onClick={() => setIsProfileOpen((prev) => !prev)}
+                    className="text-red-700 text-3xl px-3 py-1.5"
+                    aria-label="Profile"
+                  >
+                   <FaUser/>
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  {isProfileOpen && (
+                    <div className="absolute right-0 top-full mt-2 bg-white border border-red-500 rounded-md shadow-md z-50 w-40">
+                      <Link
+                        to="/admin/blogs"
+                        className="block px-4 py-2 text-black hover:bg-red-100 hover:text-red-700"
+                        onClick={() => {
+                          setIsOpen(false);
+                          setIsProfileOpen(false);
+                        }}
+                      >
+                        {t("admin")}
+                      </Link>
+                      <button
+                        onClick={() => {
+                          handleLogout();
+                          setIsOpen(false);
+                          setIsProfileOpen(false);
+                        }}
+                        className="block w-full text-left px-4 py-2 text-black hover:bg-red-100 hover:text-red-700"
+                      >
+                        {t("logout")}
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  to="/login"
+                  className="text-center text-red-700 border-2 border-red-700 px-5 py-2 rounded-lg hover:bg-red-700 hover:text-white transition font-semibold"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {t("login")}
+                </Link>
+              )}
+            </div>
+          </div>
+
         </div>
 
-        {/* Right Controls */}
+        {/* Desktop Controls */}
         <div className="hidden md:flex items-center gap-4">
           <select
             value={language}
@@ -197,19 +278,33 @@ const Navbar = () => {
             {t("donate")}
           </Link>
 
-          {isLoggedIn && (
-            <Link to="/admin/blogs" className="text-red-700 border-2 border-red-700 px-5 py-1.5 rounded-lg hover:bg-red-700 hover:text-white transition font-semibold">
-              {t("admin")}
-            </Link>
-          )}
-
           {isLoggedIn ? (
-            <button onClick={handleLogout} className="relative group text-red-700 px-2 py-1.5 text-4xl" aria-label="Logout">
-              <IoExit />
-              <span className="absolute top-full left-1/2 -translate-x-1/2 text-sm bg-black text-white px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition duration-200 whitespace-nowrap z-10">
-                Logout
-              </span>
-            </button>
+            <div className="relative group">
+              <button
+                className="text-red-700 text-3xl px-3 py-1.5"
+                aria-label="Profile"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" className="w-8 h-8" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                    d="M5.121 17.804A4.992 4.992 0 0112 15a4.992 4.992 0 016.879 2.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </button>
+
+              <div className="absolute right-0 top-full mt-2 bg-white border border-red-500 rounded-md shadow-md opacity-0 group-hover:opacity-100 group-hover:visible invisible transition-all duration-200 z-50 w-40">
+                <Link
+                  to="/admin/blogs"
+                  className="block px-4 py-2 text-black hover:bg-red-100 hover:text-red-700"
+                >
+                  {t("admin")}
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="block w-full text-left px-4 py-2 text-black hover:bg-red-100 hover:text-red-700"
+                >
+                  {t("logout")}
+                </button>
+              </div>
+            </div>
           ) : (
             <Link to="/login" className="text-red-700 border-2 border-red-700 px-5 py-2 rounded-lg hover:bg-red-700 hover:text-white transition font-semibold">
               {t("login")}
