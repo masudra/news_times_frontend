@@ -168,10 +168,10 @@ const Navbar = () => {
 
           {/* Categories */}
           <nav className="w-full mb-4 md:mb-0">
-            <div className="flex mb-2 md:flex-row gap-1 md:gap-3 overflow-x-auto scrollbar-hide px-2 font-medium text-black text-md">
+            <div className="flex lg:justify-center mb-2 md:flex-row gap-1 md:gap-3 overflow-x-auto scrollbar-hide px-2 font-medium text-black text-md">
               <Link
                 to="/"
-                className="hover:text-red-900 px-3 py-2 rounded-md font-medium whitespace-nowrap"
+                className="hover:text-red-900 px-2 py-2 rounded-md font-medium whitespace-nowrap"
                 onClick={() => setIsOpen(false)}
               >
                 {t("home")}
@@ -180,7 +180,7 @@ const Navbar = () => {
                 <Link
                   key={i}
                   to={`/${cat}`}
-                  className="hover:text-red-900 px-3 py-2 rounded-md font-medium whitespace-nowrap"
+                  className="hover:text-red-900 px-2 py-2 rounded-md font-medium whitespace-nowrap"
                   onClick={() => setIsOpen(false)}
                 >
                   {t(cat) || cat}
@@ -196,28 +196,31 @@ const Navbar = () => {
               <select
                 value={language}
                 onChange={(e) => changeLanguage(e.target.value)}
-                className="border-2 border-red-600 text-red-700 px-3 py-1.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                className="border-2 border-red-600 text-red-700 px-2 py-1.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
               >
-                <option value="en">English</option>
-                <option value="bn">বাংলা</option>
+                <option value="en">En</option>
+                <option value="bn">Bn</option>
               </select>
 
               {/* Donate Link */}
               <Link
                 to="/donate"
-                className="text-red-700 border-2 border-red-700 px-5 py-1.5 rounded-lg hover:bg-red-700 hover:text-white transition font-semibold"
+                className="text-red-700 border-2 border-red-700 px-3 py-1.5 rounded-lg hover:bg-red-700 hover:text-white transition font-semibold"
                 onClick={() => setIsOpen(false)}
               >
                 {t("donate")}
               </Link>
 
               {/* Conditional: Logged In vs Not Logged In */}
+
+
+
               {isLoggedIn ? (
                 <div className="relative">
                   {/* Profile Icon (Button) */}
                   <button
                     onClick={() => setIsProfileOpen((prev) => !prev)}
-                    className="text-red-700 text-3xl px-3 py-1.5"
+                    className="text-red-700 text-3xl px-2 py-1.5"
                     aria-label="Profile"
                   >
                    <FaUser/>
@@ -242,7 +245,7 @@ const Navbar = () => {
                           setIsOpen(false);
                           setIsProfileOpen(false);
                         }}
-                        className="block w-full text-left px-4 py-2 text-black hover:bg-red-100 hover:text-red-700"
+                        className="block w-full text-left px-2 py-2 text-black hover:bg-red-100 hover:text-red-700"
                       >
                         {t("logout")}
                       </button>
@@ -252,12 +255,17 @@ const Navbar = () => {
               ) : (
                 <Link
                   to="/login"
-                  className="text-center text-red-700 border-2 border-red-700 px-5 py-2 rounded-lg hover:bg-red-700 hover:text-white transition font-semibold"
+                  className="text-center text-red-700 border-2 border-red-700 px-3 py-2 rounded-lg hover:bg-red-700 hover:text-white transition font-semibold"
                   onClick={() => setIsOpen(false)}
                 >
                   {t("login")}
                 </Link>
               )}
+
+
+
+
+
             </div>
           </div>
 
@@ -268,48 +276,70 @@ const Navbar = () => {
           <select
             value={language}
             onChange={(e) => changeLanguage(e.target.value)}
-            className="border-2 border-red-600 text-red-700 px-3 py-1.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+            className="border-2 border-red-600 text-red-700 px-2 py-1.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
           >
-            <option value="en">English</option>
-            <option value="bn">বাংলা</option>
+            <option value="en">En</option>
+            <option value="bn">Bn</option>
           </select>
 
-          <Link to="/donate" className="text-red-700 border-2 border-red-700 px-5 py-1.5 rounded-lg hover:bg-red-700 hover:text-white transition font-semibold">
+          <Link to="/donate" className="text-red-700 border-2 border-red-700 px-3 py-1.5 rounded-lg hover:bg-red-700 hover:text-white transition font-semibold">
             {t("donate")}
           </Link>
 
-          {isLoggedIn ? (
-            <div className="relative group">
-              <button
-                className="text-red-700 text-3xl px-3 py-1.5"
-                aria-label="Profile"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" className="w-8 h-8" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                    d="M5.121 17.804A4.992 4.992 0 0112 15a4.992 4.992 0 016.879 2.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </button>
 
-              <div className="absolute right-0 top-full mt-2 bg-white border border-red-500 rounded-md shadow-md opacity-0 group-hover:opacity-100 group-hover:visible invisible transition-all duration-200 z-50 w-40">
+
+
+
+
+           {isLoggedIn ? (
+                <div className="relative">
+                  {/* Profile Icon (Button) */}
+                  <button
+                    onClick={() => setIsProfileOpen((prev) => !prev)}
+                    className="text-red-700 text-3xl px-2 py-1.5"
+                    aria-label="Profile"
+                  >
+                   <FaUser/>
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  {isProfileOpen && (
+                    <div className="absolute right-0 top-full mt-2 bg-white border border-red-500 rounded-md shadow-md z-50 w-40">
+                      <Link
+                        to="/admin/blogs"
+                        className="block px-4 py-2 text-black hover:bg-red-100 hover:text-red-700"
+                        onClick={() => {
+                          setIsOpen(false);
+                          setIsProfileOpen(false);
+                        }}
+                      >
+                        {t("admin")}
+                      </Link>
+                      <button
+                        onClick={() => {
+                          handleLogout();
+                          setIsOpen(false);
+                          setIsProfileOpen(false);
+                        }}
+                        className="block w-full text-left px-2 py-2 text-black hover:bg-red-100 hover:text-red-700"
+                      >
+                        {t("logout")}
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
                 <Link
-                  to="/admin/blogs"
-                  className="block px-4 py-2 text-black hover:bg-red-100 hover:text-red-700"
+                  to="/login"
+                  className="text-center text-red-700 border-2 border-red-700 px-3 py-2 rounded-lg hover:bg-red-700 hover:text-white transition font-semibold"
+                  onClick={() => setIsOpen(false)}
                 >
-                  {t("admin")}
+                  {t("login")}
                 </Link>
-                <button
-                  onClick={handleLogout}
-                  className="block w-full text-left px-4 py-2 text-black hover:bg-red-100 hover:text-red-700"
-                >
-                  {t("logout")}
-                </button>
-              </div>
-            </div>
-          ) : (
-            <Link to="/login" className="text-red-700 border-2 border-red-700 px-5 py-2 rounded-lg hover:bg-red-700 hover:text-white transition font-semibold">
-              {t("login")}
-            </Link>
-          )}
+              )}
+
+
+
         </div>
       </div>
     </header>
