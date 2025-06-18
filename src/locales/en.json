@@ -22,5 +22,22 @@
   "aboutUs": "About Us",
   "quickLinks": "Quick Links",
   "category": "Category",
-  "newsletter": "Newsletter"
+  "newsletter": "Newsletter",
+  "trendingPosts": "Trending Posts",
+  "recentPosts": "Recent Posts",
+  "blogNotFound": "Blog not found",
+  "shareThisBlog": "Share this blog",
+  "aboutUsText": "Welcome to our blog! We share the latest updates and stories across various categories. Stay connected and inspired with us.",
+  "categories": "Categories",
+  "technology": "Technology",
+  "lifestyle": "Lifestyle",
+  "health": "Health",
+  "business": "Business",
+  "enterYourEmail": "Enter your email",
+  "subscribe": "Subscribe",
+  "copyright": " News times. All rights reserved.",
+  "pageNotFound": "Page Not Found",
+  "pageNotFoundDescription": "The page you're looking for doesn't exist or might have been moved.",
+  "goBackHome": "Go Back Home",
+  "contact": "Contact"
 }

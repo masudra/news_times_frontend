@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { BlogContext } from "../context/BlogContext";
+import { useTranslation } from "react-i18next";
 
 const SingleBlog = () => {
   const { id } = useParams();
@@ -10,9 +11,11 @@ const SingleBlog = () => {
   const blog = blogs.find((b) => b._id === id);
   const recentPosts = [...blogs].reverse().slice(0, 5);
   const trendingPosts = [...blogs].sort(() => 0.5 - Math.random()).slice(0, 5);
+    const { t } = useTranslation();
+
   if (loading) return <LoadingSpinner />;
 
-  if (!blog) return <div className="text-center py-10 text-2xl text-red-700">Blog not found</div>;
+  if (!blog) return <div className="text-center py-10 text-2xl text-red-700">{t("blogNotFound")}</div>;
 
   return (
     <div className="max-w-full lg:max-w-[1400px] mx-auto p-4 h-screen">
@@ -22,7 +25,7 @@ const SingleBlog = () => {
         <div className="hidden lg:block">
 
           <div className="bg-gray-50 p-4 rounded space-y-4 w-full">
-            <h2 className="text-2xl font-semibold mb-3 p-4  shadow shadow-red-400">📌 Recent Posts</h2>
+            <h2 className="text-2xl font-semibold mb-3 p-4  shadow shadow-red-400">📌 {t("recentPosts")}</h2>
             {loading ? (
               <LoadingSpinner />
             ) : (
@@ -91,7 +94,7 @@ const SingleBlog = () => {
 
           <div className="hidden lg:block">
             <div className="bg-gray-50 p-4 rounded space-y-4">
-              <h2 className="text-2xl font-semibold mb-3 p-4  shadow shadow-red-400">🔥 Trending Posts</h2>
+              <h2 className="text-2xl font-semibold mb-3 p-4  shadow shadow-red-400">🔥{t("trendingPosts")}</h2>
               {loading ? (
                 <LoadingSpinner />
               ) : (
@@ -128,7 +131,7 @@ const SingleBlog = () => {
 
           <div className="hidden lg:block mt-4">
             <div className=" p-4 rounded space-y-4 shadow shadow-red-400">
-              <h2 className="text-2xl font-semibold mb-3 p-">Share this blog:</h2>
+              <h2 className="text-2xl font-semibold mb-3 p-">{t("shareThisBlog")}:</h2>
               {/* Social share icons */}
               <div className="mt-6">
                 <div className="flex space-x-4 text-2xl text-gray-600">
@@ -175,7 +178,7 @@ const SingleBlog = () => {
       <div className="block lg:hidden mt-10 space-y-8">
         {/* Recent Posts */}
         <div className="bg-gray-50 p-4 rounded space-y-4">
-          <h2 className="text-xl font-semibold mb-3">📌 Recent Posts</h2>
+          <h2 className="text-xl font-semibold mb-3">📌{t("recentPosts")}</h2>
           {loading ? (
             <LoadingSpinner />) : (
             recentPosts.map((post) => (
@@ -207,7 +210,7 @@ const SingleBlog = () => {
 
         {/* Trending Posts */}
         <div className="bg-gray-50 p-4 rounded space-y-4">
-          <h2 className="text-xl font-semibold mb-3">🔥 Trending Posts</h2>
+          <h2 className="text-xl font-semibold mb-3">🔥 {t("trendingPosts")}</h2>
           {loading ? (
             <LoadingSpinner />) : (
             trendingPosts.map((trendpost) => (

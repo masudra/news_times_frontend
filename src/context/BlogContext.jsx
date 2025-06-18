@@ -10,6 +10,9 @@ export const BlogProvider = ({ children }) => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  console.log("masud",blogs);
+  
+
   useEffect(() => {
     setLoading(true);
     axios.get(`https://mts-blog-backend1.onrender.com/blogs?lang=${language}`)

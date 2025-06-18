@@ -13,6 +13,9 @@ const BlogCard = () => {
 
   const { blogs, loading } = useContext(BlogContext);
 
+  console.log("hello",blogs);
+  
+
   // Safely extract unique categories (excluding undefined/null)
   const categories = ["all", ...new Set(blogs.map((b) => b.category).filter(Boolean))];
 
@@ -148,7 +151,7 @@ const BlogCard = () => {
                   : "No Date"}
               </p>
               <p className="text-gray-700 text-sm line-clamp-3">
-                {blog.summary || "No summary available."}
+                {blog.content || "No summary available."}
               </p>
               <div className="mt-4 flex justify-between items-center">
                 <span className="text-sm text-gray-600">👤 {blog.author || "Unknown"}</span>

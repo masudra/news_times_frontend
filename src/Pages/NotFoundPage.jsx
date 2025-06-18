@@ -1,8 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const NotFoundPage = () => {
+  const { t } = useTranslation();
+
+
+
   return (
     <div className=" -mb-10 min-h-screen bg-gradient-to-br from-red-100 via-white to-red-200 flex items-center justify-center p-6">
       <div className="text-center max-w-lg bg-white shadow-2xl rounded-3xl p-10 border border-red-300">
@@ -21,7 +26,7 @@ const NotFoundPage = () => {
           transition={{ delay: 0.3 }}
           className="text-3xl font-bold text-gray-800 mb-4"
         >
-          Page Not Found
+          {t("pageNotFound")}
         </motion.p>
 
         <motion.p
@@ -30,7 +35,7 @@ const NotFoundPage = () => {
           transition={{ delay: 0.5 }}
           className="text-gray-600 mb-6"
         >
-          The page you're looking for doesn't exist or might have been moved.
+          {t("pageNotFoundDescription")}
         </motion.p>
 
         <motion.div
@@ -42,7 +47,7 @@ const NotFoundPage = () => {
             to="/"
             className="inline-block bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-full text-lg font-semibold transition duration-300 shadow-md"
           >
-            ⬅ Go Back Home
+            ⬅ {t("goBackHome")}
           </Link>
         </motion.div>
       </div>
