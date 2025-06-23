@@ -68,15 +68,15 @@ const AddBlog = () => {
         };
 
         try {
-            const res = await axios.post("https://mts-blog-backend1.onrender.com/blogs", blogWithDate);
+            const res = await axios.post("http://localhost:5000/blogs", blogWithDate);
             alert("✅ Blog created successfully!");
             console.log(res.data);
             setBlog({
                 title: { en: "", bn: "" },
                 category: { en: "", bn: "" },
                 content: { en: "", bn: "" },
+                author: { en: "", bn: "" },
                 imageUrl: "",
-                author: "",
             });
         } catch (err) {
             alert("❌ Failed to create blog");
@@ -139,32 +139,24 @@ const AddBlog = () => {
                         />
                     </div>
 
-                    {/* Upload Image */}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Upload Image</label>
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={handleImageUpload}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md"
-                        />
-                        {uploading && <p className="text-sm text-blue-500 mt-2">Uploading image...</p>}
-                        {blog.imageUrl && (
-                            <img
-                                src={blog.imageUrl}
-                                alt="Uploaded Preview"
-                                className="mt-3 rounded-md w-full h-auto"
-                            />
-                        )}
-                    </div>
+
 
                     {/* Author */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Author</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Author(English)</label>
                         <input
                             type="text"
-                            name="author"
-                            value={blog.author}
+                            name="author.en"
+                            value={blog.author.en}
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md"
+                            placeholder="Author name"
+                        />
+                        <label className="block text-sm font-medium text-gray-700 mt-3">Author (Bangla)</label>
+                        <input
+                            type="text"
+                            name="author.bn"
+                            value={blog.author.bn}
                             onChange={handleChange}
                             className="w-full px-4 py-2 border border-gray-300 rounded-md"
                             placeholder="Author name"
@@ -193,6 +185,26 @@ const AddBlog = () => {
                             placeholder="Full blog content in Bangla"
                             required
                         />
+                    </div>
+
+                    {/* Upload Image */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Upload Image</label>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageUpload}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md"
+                            required
+                        />
+                        {uploading && <p className="text-sm text-blue-500 mt-2">Uploading image...</p>}
+                        {blog.imageUrl && (
+                            <img
+                                src={blog.imageUrl}
+                                alt="Uploaded Preview"
+                                className="mt-3 rounded-md w-full h-auto"
+                            />
+                        )}
                     </div>
 
                     {/* Submit Button */}

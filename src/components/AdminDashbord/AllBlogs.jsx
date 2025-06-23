@@ -11,7 +11,7 @@ export default function AllBlogs() {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`https://mts-blog-backend1.onrender.com/blogs/${id}`, {
+      const res = await fetch(`http://localhost:5000/blogs/${id}`, {
         method: "DELETE",
       });
 

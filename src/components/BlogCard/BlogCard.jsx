@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { BlogContext } from "../../context/BlogContext";
 import { useTranslation } from "react-i18next";
@@ -11,7 +11,7 @@ const BlogCard = () => {
   const { t } = useTranslation();
 
 
-  const { blogs, loading } = useContext(BlogContext);
+  const { blogs, } = useContext(BlogContext);
 
   console.log("hello",blogs);
   
