@@ -19,7 +19,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/users', formData);
+      const res = await axios.post('https://news-times-backend.onrender.com/users', formData);
       toast.success(res.data.message || 'Registration successful!');
       navigate('/');
     } catch (err) {

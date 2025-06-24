@@ -8,7 +8,7 @@ const UserList = () => {
 
     const fetchUsers = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/users');
+            const res = await axios.get('https://news-times-backend.onrender.com/users');
             setUsers(res.data);
 
             // Save initial roles
@@ -29,7 +29,7 @@ const UserList = () => {
     const handleRoleUpdate = async (id) => {
         const newRole = selectedRoles[id];
         try {
-            await axios.put(`http://localhost:5000/users/${id}/role`, { role: newRole });
+            await axios.put(`https://news-times-backend.onrender.com/users/${id}/role`, { role: newRole });
             toast.success('Role updated');
             fetchUsers(); // refresh data
         } catch (err) {

@@ -12,7 +12,7 @@ const AddBlog = () => {
 
     const [uploading, setUploading] = useState(false);
 
-    const imgbbApiKey = "2e9ccc73a7d46f02f4c32104024a62b9";
+    const imgbbApiKey = import.meta.env.VITE_IMGBB_API_KEY;
 
     const formattedDate = new Date().toLocaleDateString("en-US", {
         year: "numeric",
@@ -68,7 +68,7 @@ const AddBlog = () => {
         };
 
         try {
-            const res = await axios.post("http://localhost:5000/blogs", blogWithDate);
+            const res = await axios.post("https://news-times-backend.onrender.com/blogs", blogWithDate);
             alert("✅ Blog created successfully!");
             console.log(res.data);
             setBlog({
