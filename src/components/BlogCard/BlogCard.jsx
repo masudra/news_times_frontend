@@ -10,12 +10,7 @@ const BlogCard = () => {
   const itemsPerPage = 8;
   const { t } = useTranslation();
 
-
   const { blogs, } = useContext(BlogContext);
-
-  console.log("hello",blogs);
-  
-
   // Safely extract unique categories (excluding undefined/null)
   const categories = ["all", ...new Set(blogs.map((b) => b.category).filter(Boolean))];
 

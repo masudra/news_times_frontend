@@ -10,8 +10,6 @@ export const BlogProvider = ({ children }) => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  console.log("masud", blogs);
-
 
   useEffect(() => {
     setLoading(true);

@@ -49,8 +49,6 @@ export default function CheckoutForm() {
       setError(null);
       setSuccess(true);
       setPaymentMethod(paymentMethod);
-      console.log("PaymentMethod created:", paymentMethod);
-      console.log("Donation Amount:", amount, currency);
       setLoading(false);
     }
   };

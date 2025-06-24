@@ -70,7 +70,6 @@ const AddBlog = () => {
         try {
             const res = await axios.post("https://news-times-backend.onrender.com/blogs", blogWithDate);
             alert("✅ Blog created successfully!");
-            console.log(res.data);
             setBlog({
                 title: { en: "", bn: "" },
                 category: { en: "", bn: "" },
@@ -138,8 +137,6 @@ const AddBlog = () => {
                             required
                         />
                     </div>
-
-
 
                     {/* Author */}
                     <div>
