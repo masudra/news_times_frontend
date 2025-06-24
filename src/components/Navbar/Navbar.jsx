@@ -1,11 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { IoExit } from "react-icons/io5";
 import { LanguageContext } from "../LanguageContext";
 import { BlogContext } from "../../context/BlogContext";
 import { FaUser } from "react-icons/fa";
+import LanguageSwitcher from "../LanguageSwitcher";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -16,7 +16,7 @@ const Navbar = () => {
   const { language, changeLanguage } = useContext(LanguageContext);
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
-  const { blogs, loading } = useContext(BlogContext);
+  const { blogs} = useContext(BlogContext);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
 
@@ -168,6 +168,8 @@ const Navbar = () => {
 
           {/* Categories */}
           <nav className="w-full mb-4 md:mb-0">
+
+            <LanguageSwitcher/>
             <div className="flex lg:justify-center mb-2 md:flex-row gap-1 md:gap-3 overflow-x-auto scrollbar-hide px-2 font-medium text-black text-md">
               <Link
                 to="/"
